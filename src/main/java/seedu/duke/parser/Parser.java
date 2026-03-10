@@ -6,6 +6,7 @@ import seedu.duke.command.RemoveCommand;
 import seedu.duke.command.ListCompletedCommand;
 import seedu.duke.command.ListIncompleteCommand;
 import seedu.duke.command.ListNeededCommand;
+import seedu.duke.command.CountCommand;
 
 public class Parser {
 
@@ -21,6 +22,10 @@ public class Parser {
 
         if (input.equals("list needed")) {
             return new ListNeededCommand();
+        }
+
+        if (input.equals("count")) {
+            return new CountCommand();
         }
 
         if (input.startsWith("done ")) {

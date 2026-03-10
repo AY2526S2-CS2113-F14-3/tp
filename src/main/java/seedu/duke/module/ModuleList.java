@@ -10,7 +10,7 @@ import seedu.duke.exception.DuplicateException;
 
 public class ModuleList {
 
-    private static final int TOTAL_GRADUATION_MCS = 160;
+    private static final int TOTAL_GRADUATION_MCS = 80;
 
     private static final List<String> REQUIRED_MODULES = Arrays.asList(
             // engineering core
@@ -182,6 +182,27 @@ public class ModuleList {
             index++;
         }
         return neededModulesList.toString().trim();
+    }
+
+    /**
+     * Returns a summary of completed and remaining MCs with percentage.
+     */
+    public String countMcs() {
+        int completedMcs = 0;
+        for (Module module : completedModules) {
+            completedMcs += module.getModularCredits();
+        }
+        int remainingMcs = TOTAL_GRADUATION_MCS - completedMcs;
+        if (remainingMcs < 0) {
+            remainingMcs = 0;
+        }
+        double percentage = (double) completedMcs / TOTAL_GRADUATION_MCS * 100;
+        double remainingPercentage = 100.0 - percentage;
+
+        return String.format("Completed: %d / %d MCs (%.1f%%)\n"
+                + "Incomplete: %d MCs (%.1f%%)",
+                completedMcs, TOTAL_GRADUATION_MCS, percentage,
+                remainingMcs, remainingPercentage);
     }
 
     public String listIncompleteModules() {
