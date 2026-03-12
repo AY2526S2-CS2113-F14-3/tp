@@ -31,7 +31,7 @@ public class ModuleList {
 
     private static final Map<String, Integer> MODULE_MC_MAP = new HashMap<>();
 
-    private final List<Module> completedModules;
+    public final List<Module> completedModules;
 
     static {
         // engineering core
