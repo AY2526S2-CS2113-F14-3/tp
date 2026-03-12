@@ -2,7 +2,8 @@ package seedu.duke.storage;
 
 import java.io.IOException;
 import seedu.duke.module.Module;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
