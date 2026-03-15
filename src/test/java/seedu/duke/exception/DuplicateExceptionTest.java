@@ -8,7 +8,7 @@ public class DuplicateExceptionTest {
 
     @Test
     public void constructor_moduleCode_messageFormattedCorrectly() {
-        DuplicateException e = new DuplicateException("CS2113");
-        assertEquals("Module CS2113 has already been completed", e.getMessage());
+        DuplicateException exception = new DuplicateException("CS2113");
+        assertEquals("Module CS2113 has already been completed", exception.getMessage());
     }
 }
