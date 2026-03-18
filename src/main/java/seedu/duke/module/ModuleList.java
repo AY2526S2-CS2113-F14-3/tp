@@ -212,14 +212,20 @@ public class ModuleList {
     public String countMcs() {
         int completedMcs = 0;
         for (Module module : completedModules) {
+            assert module != null : "Completed module should not be null";
             completedMcs += module.getModularCredits();
         }
+        assert completedMcs >= 0 : "Completed MCs should not be negative";
         int remainingMcs = TOTAL_GRADUATION_MCS - completedMcs;
         if (remainingMcs < 0) {
             remainingMcs = 0;
         }
+        assert remainingMcs >= 0 : "Remaining MCs should not be negative";
         double percentage = (double) completedMcs / TOTAL_GRADUATION_MCS * 100;
         double remainingPercentage = 100.0 - percentage;
+
+        logger.log(Level.INFO, "MC progress: {0}/{1} MCs completed ({2}%)",
+                new Object[]{completedMcs, TOTAL_GRADUATION_MCS, String.format("%.1f", percentage)});
 
         return String.format("Completed: %d / %d MCs (%.1f%%)\n"
                 + "Incomplete: %d MCs (%.1f%%)",
