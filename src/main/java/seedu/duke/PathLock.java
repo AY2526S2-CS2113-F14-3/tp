@@ -14,6 +14,7 @@ public class PathLock {
      */
     @SuppressWarnings("checkstyle:RightCurly")
     public static void main(String[] args) {
+        assert false : "dummy assertion set to fail";
 
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage();
