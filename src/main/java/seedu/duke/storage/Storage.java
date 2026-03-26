@@ -15,7 +15,7 @@ import seedu.duke.module.Module;
 
 public class Storage {
     private static final Logger logger = Logger.getLogger(Storage.class.getName());
-    private static String filePath;
+    private static String filePath = "data/duke.txt";
 
     public Storage() {
         this("data/duke.txt"); // default

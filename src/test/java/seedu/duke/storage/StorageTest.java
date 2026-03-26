@@ -6,9 +6,10 @@ import java.util.List;
 
 import seedu.duke.module.Module;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class storageTest {
+public class StorageTest {
 
     @Test
     public void load_emptyFile_returnsEmptyList() throws IOException {
