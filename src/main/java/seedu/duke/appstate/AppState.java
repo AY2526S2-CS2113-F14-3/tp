@@ -1,4 +1,4 @@
-package seedu.duke.appState;
+package seedu.duke.appstate;
 
 import seedu.duke.module.ModuleList;
 import seedu.duke.planner.PlannerList;

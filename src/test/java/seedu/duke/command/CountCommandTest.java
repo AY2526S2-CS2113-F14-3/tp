@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.exception.DuplicateException;
 import seedu.duke.module.Module;
 import seedu.duke.module.ModuleList;
-import seedu.duke.appState.AppState;
+import seedu.duke.appstate.AppState;
 import seedu.duke.planner.PlannerList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

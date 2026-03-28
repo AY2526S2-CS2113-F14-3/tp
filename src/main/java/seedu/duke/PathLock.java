@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
 
-import seedu.duke.appState.AppState;
+import seedu.duke.appstate.AppState;
 import seedu.duke.command.Command;
 import seedu.duke.module.Module;
 import seedu.duke.module.ModuleList;
