@@ -3,7 +3,7 @@ package seedu.duke.command;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import seedu.duke.appState.AppState;
+import seedu.duke.appstate.AppState;
 import seedu.duke.exception.DuplicateException;
 import seedu.duke.module.Module;
 import seedu.duke.module.ModuleList;

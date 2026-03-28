@@ -1,7 +1,7 @@
 package seedu.duke.command;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.appState.AppState;
+import seedu.duke.appstate.AppState;
 import seedu.duke.module.ModuleList;
 import seedu.duke.planner.PlannerList;
 import seedu.duke.profile.UserProfile;

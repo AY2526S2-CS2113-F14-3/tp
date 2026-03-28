@@ -74,7 +74,12 @@ public class Storage {
     }
 
     public static void save(List<Module> modules) throws IOException {
-
+        File file = new File(filePath);
+        File parent = file.getParentFile();
+        if (parent != null) {
+            parent.mkdirs();
+        }
+        
         FileWriter writer = new FileWriter(filePath);
 
         for (Module module : modules) {
