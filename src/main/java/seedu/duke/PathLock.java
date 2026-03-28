@@ -4,16 +4,19 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
 
-import seedu.duke.appState.AppState;
+import seedu.duke.appstate.AppState;
 import seedu.duke.command.Command;
 import seedu.duke.module.Module;
 import seedu.duke.module.ModuleList;
 import seedu.duke.parser.Parser;
+import seedu.duke.profile.UserProfile;
+import seedu.duke.storage.ProfileStorage;
 import seedu.duke.planner.PlannerList;
 import seedu.duke.ui.UI;
 import seedu.duke.storage.Storage;
-import seedu.duke.exception.DuplicateException;
 
+import seedu.duke.exception.DuplicateException;
+import java.util.NoSuchElementException;
 
 public class PathLock {
     /**
@@ -24,9 +27,12 @@ public class PathLock {
         Scanner scanner = new Scanner(System.in);
         ModuleList modules = getModuleList();
         PlannerList course = new PlannerList();
-        AppState appState = new AppState(modules,course);
 
         UI.opening();
+
+        UserProfile profile = getOrCreateProfile(scanner);
+        AppState appState = new AppState(modules, course, profile);
+
         while (true) {
             UI.userPrompt();
 
@@ -81,5 +87,75 @@ public class PathLock {
             // no saved data, start fresh
         }
         return modules;
+    }
+
+    private static UserProfile getOrCreateProfile(Scanner scanner) {
+        ProfileStorage profileStorage = new ProfileStorage();
+
+        try {
+            UserProfile savedProfile = profileStorage.loadProfile();
+            if (savedProfile != null) {
+                System.out.println("Welcome back, " + savedProfile.getName() + "!");
+                System.out.println("Saved GPA: " + String.format("%.2f", savedProfile.getGpa()));
+                System.out.println("Recommended maximum semester workload: "
+                        + savedProfile.getRecommendedMaxWorkload() + " MCs");
+                UI.dash();
+                return savedProfile;
+            }
+        } catch (IOException e) {
+            System.out.println("Could not load saved profile. Creating a new one.");
+            UI.dash();
+        }
+
+        System.out.print("Enter your name: ");
+        if (!scanner.hasNextLine()) {
+            throw new NoSuchElementException("No input provided for name.");
+        }
+        String name = scanner.nextLine().trim();
+
+        while (name.isEmpty()) {
+            System.out.print("Name cannot be empty. Enter your name: ");
+            name = scanner.nextLine().trim();
+        }
+
+        double gpa = promptForGpa(scanner);
+
+        UserProfile profile = new UserProfile(name, gpa);
+
+        try {
+            profileStorage.saveProfile(profile);
+        } catch (IOException e) {
+            System.out.println("Warning: profile could not be saved.");
+            UI.dash();
+        }
+
+        System.out.println("Profile saved for " + profile.getName() + ".");
+        System.out.println("Recommended max semester workload: "
+                + profile.getRecommendedMaxWorkload() + " MCs");
+        UI.dash();
+
+        return profile;
+    }
+
+    private static double promptForGpa(Scanner scanner) {
+        while (true) {
+            System.out.print("Enter your GPA (2.0 to 5.0): ");
+
+            if (!scanner.hasNextLine()) {  // ← ADD THIS
+                throw new NoSuchElementException("No input provided for GPA.");
+            }
+
+            String input = scanner.nextLine().trim();
+            try {
+                double gpa = Double.parseDouble(input);
+                if (gpa < 2.0 || gpa > 5.0) {
+                    System.out.println("GPA must be between 2.0 and 5.0.");
+                    continue;
+                }
+                return gpa;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid GPA.");
+            }
+        }
     }
 }
