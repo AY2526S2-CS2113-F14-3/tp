@@ -1,10 +1,12 @@
-# Developer Guide
+# Pathlock Developer Guide
 
+---
 ## Acknowledgements
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
+---
+## Design
 
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
@@ -17,10 +19,10 @@ How the `Command` Component work:
 1. When the user enters a command, the `Command` component identifies the type of command and creates the corresponding Command object.
 2. This command is represented as a subclass of `Command`, such as `DoneCommand`, `RemoveCommand`, `CountCommand`, `ListCompletedCommand`, `ListIncompleteCommand`, `ListNeededCommand`, or `AddToPlannerCommand`.
 3. The selected command is then executed by calling its `execute(ModuleList modules)` method. During execution, the command interacts with the ModuleList to retrieve, add, remove, or count modules. For example:
-- `DoneCommand` adds a completed module to the list and saves the updated data to storage.
-- `RemoveCommand` removes a module from the list and saves the updated data to storage.
-- `CountCommand` retrieves the total number of MCs completed.
-- `ListCompletedCommand`, `ListIncompleteCommand`, and `ListNeededCommand` retrieve different filtered views of the module list. 
+   - `DoneCommand` adds a completed module to the list and saves the updated data to storage.
+   - `RemoveCommand` removes a module from the list and saves the updated data to storage.
+   - `CountCommand` retrieves the total number of MCs completed.
+   - `ListCompletedCommand`, `ListIncompleteCommand`, and `ListNeededCommand` retrieve different filtered views of the module list. 
 4. After execution, the command returns a String result, which is then shown to the user as the system response. This is evident from the shared method signature in Command and the implementations in each subclass.
 
 ### Storage component
@@ -34,6 +36,7 @@ The storage component:
 - different user can also have different iteration of their plan
 
 ---
+## Implementation: Shi Yong
 
 ### Class Structure
 
@@ -43,7 +46,7 @@ The diagram below shows the key classes involved in the `done` and `remove` comm
 
 ### `done` Command Implementation
 
-### Overview
+#### Overview
 
 The `done` command marks a module as completed and records it towards the user's graduation progress.
 
@@ -101,7 +104,6 @@ The split into `handleInternalModule()` and `handleExternalModule()` avoids a de
 Delegating validation to `ModuleValidator` means that if the NUS module code format ever changes, only one class needs updating.
 
 ---
-
 ### `remove` Command Implementation
 
 #### Overview
@@ -126,6 +128,7 @@ The diagram below shows remove module path (`remove CS2113`):
 
 Using `markIncompleted()` rather than deleting the `Module` object keeps the `allModules` map intact. This map is the shared database for `isRecognisedModule()`, `getMcForModule()`, and `listNeededModules()` — all of which depend on all modules being present regardless of completion status.
 
+---
 ### Duplicate Module Check Implementation
 
 #### Overview
@@ -137,6 +140,171 @@ The duplicate module check prevents a user from recording the same module as com
 The diagram below shows duplicate module check path:
 ![Sequence Diagram for Duplicate Module Check](https://img.plantuml.biz/plantuml/png/dPJFQkCm4CRl0ht3u5DoQ27Rdd9O2abl3XJ2Fe0gJTSYjkHAuztaxJkIwtzfMDZwOYnztymtFma_HLA1kgQMWYpL24Tyxz1fXBrLluDgjh3lsjfgHGW7RpgMx2hK9oagQn3UlATNVvP22gN91_WLCKZHSb6hRQiSGR5zKLILNfyAK166ZslHtZlS-QPHpcHT_cxCjQpFKDf8MNKeRmlwJMzIi1G9xdwEdM4BXU7gi3l-s6mUYXpT_aaJJk6a6ELi_Gp3JZoZxWXNgcsFn9Rrp3r6bc8miFTGiaqPqmTR5PzTvyOqXHGiJ7AVsjZ8BDeQ2SrgeKmZ9SbThYo5mUKUQsi2LGTKvW9wA285y9CwBAQXAlY_SJhYvxF6bgntlNvUlEoNni6kW0vt8my75TCVChmYkYb8yQNoI2sjJz2vVZwuBRJ1Eeg08VZmnJsT6DOHmNc22zAjmGUqZGgd1TmaM4BCbXdaQnOzw9j4OwSrnlZV_6RWCZ2-C6XWzGY7NLpVVvzQmDZLz2ziBW_pn6_-3Nm0)
 
+---
+## Implementation: Brian
+
+### Class Structure
+
+The diagram below shows the key classes involved in the `list` commands and the `help` command, and their relationships.
+
+![Class Diagram of list and help Commands](https://img.plantuml.biz/plantuml/png/fLNHRjiW57stv7z0VihQkTfUhSXgrLHTfAQjb3xsXS1TWuR10gnDo_Bl0unZKzDjMf-2xpttt0ESIowrmSfq3S-pFQE025E4GvxfRqoqME464OwrlZ96iLrdO4sasBAVW3xbMPxv72eEUAUDmiGSdyMrR1eiQ86mHc6D3dc6q3dy068P5hXjjmORgD1LM7seqDRoYvSyEuwqTqmRoz1oC43_bsfAjXOaqBrVs3q0VR-gBy3RYACqicLaHFyhgwtKU_dz5WGep1tjOfvTWS6C0_Nfg56C5L8rc3CDJmwpi4ReJ1gvwnZtT1li6zgVPP_-663rgnq_OgL1zPizMEyPHexel7NHS12pVY6Ug5X90JEu2vvA9hSsd5guh1Sm6qax3bwtNxbxZKh6S2ZYKqlsMHqVj8UCHdiRqniedRVQKbsSa6N_NITq1WSHII6wfCPUCnEcju4zWKuF6zxwBz-IwLD7rsed9GSi1ZKFwbR9BlAKRm-YQo8kj5owc3MXOLBKTQzfVN_zi7cyktcwSL_3UXL8XW5O_YhBvD0d8BDHJc2Y4NsLdmnUdWLFNbpKwJUdGaI1TOwUGUSlojlO-CL8uwRlmGIHL5MMzUZf2bairUYhaasFdqlxIq6ixm_WKzXX9YDIeRtarCgTn8hF1JgpvrsS5ODBxRwai0-HE24dHC55bWhRz2K8Ql-QVWC0)
+
+### `list` Commands Implementation
+
+#### Overview
+
+The three list commands provide different filtered views of the module list:
+
+- `list completed` — shows all modules the user has marked as done.
+- `list incomplete` — shows all required CEG modules not yet completed, including OR-group modules (e.g. `CS2103 OR CS2113`).
+- `list needed` — shows every required module for graduation.
+
+All three commands are **read-only** — they do not modify any data or write to storage.
+
+#### Design
+
+All three commands follow the same execution pipeline:
+
+```
+PathLock (Main) → Parser → ListCommand → AppState → ModuleList → returns String
+```
+
+Key design decisions:
+- All three commands are **thin wrappers** — each one extracts `ModuleList` from `AppState` and delegates to a single method on `ModuleList`. The formatting and filtering logic lives entirely in `ModuleList`, keeping the command classes focused solely on retrieval.
+- Using **three separate command classes** (rather than a single `ListCommand` with a flag) keeps each class independently testable and avoids branching logic inside `execute()`.
+- `listIncompleteModules()` and `listNeededModules()` handle **OR groups** by tracking which `orGroup` labels have already been listed, preventing duplicates when multiple modules share the same OR group.
+
+#### Implementation
+
+**Parsing**
+
+`Parser.parseCommand()` performs exact string matching for the three list commands:
+
+```java
+if (input.equals("list completed")) {
+    return new ListCompletedCommand();
+}
+if (input.equals("list incomplete")) {
+    return new ListIncompleteCommand();
+}
+if (input.equals("list needed")) {
+    return new ListNeededCommand();
+}
+```
+
+**Execution**
+
+Each command's `execute()` follows the same pattern:
+
+```java
+@Override
+public String execute(AppState appState) {
+    ModuleList modules = appState.getModule();
+    assert modules != null : "ModuleList should not be null";
+    String result = modules.listCompletedModules(); // or listIncompleteModules() / listNeededModules()
+    return result;
+}
+```
+Inside `ModuleList`:
+
+- `listCompletedModules()` iterates over both `allModules` and `externalModules`, collecting entries where `module.isCompleted()` is true, then formats them as a numbered list.
+- `listIncompleteModules()` iterates over `allModules`, skipping OR groups already listed and modules already completed. It uses `isOrGroupFulfilled()` to check if any member of an OR group has been completed before listing the group.
+- `listNeededModules()` iterates over `allModules` and lists every module or OR group without filtering by completion status.
+
+#### Sequence Diagram
+
+The diagrams below shows the execution path for `list completed`, `list incomplete` and `list needed`.
+
+![Sequence Diagram for list completed](https://img.plantuml.biz/plantuml/png/TP9DQeKm4CVtWTnXS6KNNi15UMAN2W-a1mWwjQ69-fAnzFYT95hKjklv_JzcafidvMYrHWhIP10wVAmuzGWlMerEsHACzWJzR1U3X0FKixLg6gIGGlKqEtZrwAHOs4RtUb4JGLRU5RqtS_-HWV9mRtwF7OlIy3fhEAxUqxQmI3Rr5QsMfID56CTLTnstyx0Q37uHQ9lGERI5ufbBGGdPURSihgG_sJAMbeAfm3AwXCfRdVogUpeAemwAFUElVN8M37YHnAYcPWb-ORyIvchRxsWVhY05OmnN7SCZKbeqFsBX6b8mKEocDaB-59oePDQ6ikPODjdwasyw8hC_lc-piuh2p-Z8wMay1IGy1EpdSEXNGqTeNvw9-3XyQ_OX_mzwmsdW__eD)
+
+![Sequence Diagram for list incomplete](https://img.plantuml.biz/plantuml/png/TPBDQeGm4CVlWRp3uCaUzWKyb1LxAIWiI1yWwDI69kecO-dZTvBeehOzp-__CPDSFIb7YpLIa2Q3qE9zmR53UD5gSCeMOBGdq6CtsTaW8LIJjMhifP12TJGvUFFef9ZPHtTwLYD1LjmKVTHJzvc1yd2hVuyTYzBmFAivx_KHjwP5jAxER3dFBId2E2xRyxYP-iLWC8n0KuVIeIvSdhaL592TjilYKlgBFMDjAHWBCBDpABtsoS_2FdlQIwCIBblCdplbhEZnf8bfTSKQ_CPk8SpLkkFUFrn22iOOBbk61wIqRBx7maMaOE2ocTe8-KDmef9P4zgQGzlawm_6wP8CFupV9sSLyHsW9QV7uP2Gy92m7SIXNmpjeMrx9k8ByRtPX_m_w1N7dh_j3m00)
+
+![Sequence Diagram for list needed](https://img.plantuml.biz/plantuml/png/TP91ReGm34NtaN87YnLTS04MrI2wP4OZeHuW0fT6JO0cfkhnwoGm0aPT-_dvsyd5atAqM2C5QJ88BNulE7O8RreDJjaIZFO48sAFFTIJjMhifP12TJGvUFVef9ZPeJizgv4WA--AFfkf-yf0URWtpsN7JQbuhZKywnP7hPCYrjHdhfhdbXHXB5VjkNoT-iLWa4NWseJ08IeKhvm8IiXsMsLn6Vt3lXXN2aO2oDmSmgvPyaFJoxuhDa6nsP_Mo9dkySJ78KtDFFvYjn3cQbrhxmxBIy4OmrNBy82KziltM3Y250mKczH6o1y69oh9hY6fUIHDJd-GfiCn-91-JCug8luABJaz3WTxmeDzEuH3lnZQGzlcJCG7uHEpX_m_w0N7dd_d7m00)
+
+#### Why This Design?
+
+Delegating all formatting logic to `ModuleList` means the three command classes stay extremely lightweight and identical in structure. If the output format ever needs to change (e.g. adding MC counts next to each module), only `ModuleList` needs updating — not three separate command classes.
+
+---
+### `help` Command Implementation
+
+#### Overview
+
+The `help` command gives users two views:
+- `help` (no argument) — prints a grouped overview of all available commands.
+- `help <command>` (with argument) — prints a detailed breakdown of a specific command, including its purpose, usage format, and example output.
+
+#### Design
+
+```
+PathLock (Main) → Parser → HelpCommand → returns String
+```
+
+`HelpCommand` does not interact with `AppState` or `ModuleList` for its core logic. All help content is inside `HelpCommand` itself via `buildHelpMap()`. 
+
+Key design decisions:
+- **`buildHelpMap()`** stores all detailed help strings in a `LinkedHashMap<String, String>`, keyed by normalised topic name. This separates content from lookup logic, making it easy to add new commands to the help system without changing control flow.
+- **`normaliseTopic()`** handles variations in how users might type command names (e.g. extra spaces, mixed case), mapping them to a canonical key before querying the map.
+
+#### Implementation
+
+**Parsing**
+
+```java
+if (input.equals("help")) {
+    return new HelpCommand(); // no argument constructor, topic = null
+}
+if (input.startsWith("help ")) {
+    String topic = input.substring(5).trim();
+    return new HelpCommand(topic); // topic argument constructor
+}
+```
+
+**Execution**
+
+```java
+@Override
+public String execute(AppState appState) {
+    if (topic == null || topic.isEmpty()) {
+        return showGeneralHelp();
+    }
+    return showDetailedHelp(topic);
+}
+```
+
+`showGeneralHelp()` builds and returns a fixed formatted string grouping all commands by category (List Commands, Module Management, Module Planner, PathLock System).
+
+`showDetailedHelp()` calls `normaliseTopic()` on the input, then looks up the result in `buildHelpMap()`. If no match is found, it returns a fallback message directing the user to `help`.
+
+```java
+private String showDetailedHelp(String inputTopic) {
+    Map<String, String> helpMap = buildHelpMap();
+    String normalisedTopic = normaliseTopic(inputTopic);
+    if (helpMap.containsKey(normalisedTopic)) {
+        return helpMap.get(normalisedTopic);
+    }
+    return dash + "\nNo detailed help found for \"" + inputTopic + "\".\n"
+            + "Type 'help' to see all available commands.\n" + dash;
+}
+```
+
+#### Sequence Diagram
+
+The diagram below shows the execution path for `help`:
+
+![Sequence Diagram for help](https://img.plantuml.biz/plantuml/png/VP51QiCm44Nt0jrXyCfTv09Ub80BpIABWEa11dcmHMr9aSPEZz-H7LFZGDV_pNyVwPmO8q_Ze1LR7WWQka_a3C67nIxYM45FGu3QZoEwLYiqx2Dy9OfQ1JcrnWPq34LrG-wltdmNW0bkrzSuoj4Q7hEBA9w61RZKMccL9N1wboweeCWpYiLlPsHQ35f9bWa1Gkv_bfGh_RR75nfEMzzEMGhNqaR-jLvguUY7pCHKOWWDIxplN6SAji6fzuzFSXHnoFtb_p17wxgZEWFRnYxwAL0BPjq9VgOuMtf0yt8AssovNTvD7aGOJX0fJGCVDMTohVpwBm00)
+
+The diagram below shows the execution path for `help done`:
+
+![Sequence Diagram for help done](https://img.plantuml.biz/plantuml/png/XP9DJiD034RtSmehgx0e1yW2LMeNNHIfKk409cEQ4VF7Z0ESW0DmH4w2fqsgq1An_fxVvyIpp8o9UsSL6xO4UthjoRS4QuE7XAw1Zcm47Jp1AZY7NYk5BOS4ZvcIYZ9jMXFHCrJD3hdRXlQb0iomsrwbIKPEsKMqaP91VymtAwMA7nPtue46glCQLQatRyXK6fIaXH4a5lqWgIVypMH0U5YCpabfNGsefX4UrPkLeFH1RSzKOunxbd3YBAiACvAv2-zhOZIMT2auc-S6ddfZZ-GzndeUwqx4hmKdiG_9eJMP7a8qxLWAtvzVK5tyjQcu0Kx6ET9ptg7sza3yxvSaohtbETDpsP2PzEb5xQNO7wxWyJR_q-KwGXzVYHnVSiv_hR0ah-Lz_m00)
+
+#### Why This Design?
+
+Storing all help content in `buildHelpMap()` as a `LinkedHashMap` means that adding a new command to the help system requires only one change, a new entry in the map, without touching control flow or the general help string separately.
+
+`normaliseTopic()` acting as a pre-processing step keeps `showDetailedHelp()` clean. If future commands have aliases or shorthand (e.g. `lc` for `list completed`), `normaliseTopic()` is the only place that needs updating.
+
+---
 ## Product scope
 ### Target user profile
 - Y1-Y4 Computer Engineering Undergraduate Students (JC path)
@@ -152,6 +320,7 @@ PathLock provides a lightweight, offline CLI tool for CEG students to organise c
 tracking completed modules, monitoring MC progress, and managing graduation requirements without needing a
 database or internet connection.
 
+---
 ## User Stories
 
 |Version| As a ... | I want to ...                                           | So that I can ...                                           |
@@ -163,15 +332,18 @@ database or internet connection.
 |v2.0|User| be able to edit the mods I have indicated in my planenr | correct any mistakes I made                                 |
 |v2.0|User| have a visual indication of my planner                  | so that I can see my whole planned timetable over my course |
 
+---
 ## Non-Functional Requirements
 
 1. Should work on any mainstream OS (Windows, macOS, Linux) with Java 17 or above installed.
 2. All data is stored locally and the application should work fully without internet connectivity.
 3. The saved plan file should remain human-readable and editable with a standard text editor.
 
+---
 ## Glossary
 
 * *glossary item* - Definition
+---
 
 ## Instructions for manual testing
 
