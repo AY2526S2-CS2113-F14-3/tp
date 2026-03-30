@@ -88,6 +88,4 @@ public class DoneCommand extends Command {
                 new Object[]{moduleCode, mc});
         return moduleCode + " has been added.";
     }
-
-
 }
