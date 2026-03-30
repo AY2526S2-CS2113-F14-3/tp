@@ -14,7 +14,7 @@ public class RemoveCommandTest {
         ModuleList modules = new ModuleList();
         AppState state = new AppState(modules, new PlannerList(), new UserProfile("Test User", 3.50));
 
-        DoneCommand doneCommand = new DoneCommand("CS1231",4);
+        DoneCommand doneCommand = new DoneCommand("CS1231");
         doneCommand.execute(state);
 
         RemoveCommand removeCommand = new RemoveCommand("CS1231");
@@ -39,7 +39,7 @@ public class RemoveCommandTest {
     public void execute_lowercaseInput_convertedToUppercase() {
         ModuleList modules = new ModuleList();
         AppState state = new AppState(modules, new PlannerList(), new UserProfile("Test User", 3.50));
-        DoneCommand doneCommand = new DoneCommand("CS1231", 4);
+        DoneCommand doneCommand = new DoneCommand("CS1231");
         doneCommand.execute(state);
 
         RemoveCommand removeCommand = new RemoveCommand("cs1231");

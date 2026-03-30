@@ -5,12 +5,9 @@ import seedu.duke.profile.UserProfile;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import seedu.duke.module.Module;
 
 public class ProfileStorage {
     private static final Logger logger = Logger.getLogger(ProfileStorage.class.getName());

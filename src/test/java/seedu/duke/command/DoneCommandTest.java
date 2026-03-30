@@ -13,11 +13,11 @@ public class DoneCommandTest {
     public void execute_validModule_success() {
         ModuleList modules = new ModuleList();
         AppState state = new AppState(modules, new PlannerList(), new UserProfile("Test User", 3.50));
-        DoneCommand command = new DoneCommand("CS1231", 4);
+        DoneCommand command = new DoneCommand("CS1231");
 
         String result = command.execute(state);
 
-        assertEquals("CS1231 has been added (4 MCs).", result);
+        assertEquals("CS1231 has been added.", result);
         assertEquals(1, modules.getCompletedModules().size());
     }
 
@@ -26,9 +26,9 @@ public class DoneCommandTest {
         ModuleList modules = new ModuleList();
         AppState state = new AppState(modules, new PlannerList(), new UserProfile("Test User", 3.50));
 
-        DoneCommand command = new DoneCommand("cs1231", 4);
+        DoneCommand command = new DoneCommand("cs1231");
         String result = command.execute(state);
 
-        assertEquals("CS1231 has been added (4 MCs).", result);
+        assertEquals("CS1231 has been added", result);
     }
 }

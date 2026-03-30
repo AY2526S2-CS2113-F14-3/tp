@@ -44,7 +44,7 @@ public class DoneCommand extends Command {
             logger.log(Level.FINE, "Storage updated for user {0} after adding module: {1}",
                     new Object[]{username, moduleCode});
 
-            return moduleCode + " has been added";
+            return moduleCode + " has been added.";
 
         } catch (DuplicateException e) {
             logger.log(Level.WARNING, "Duplicate module code: {0}", moduleCode);

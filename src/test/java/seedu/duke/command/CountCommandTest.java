@@ -49,7 +49,7 @@ public class CountCommandTest {
     public void execute_externalModule_countsTowardsTotalMcs() {
         ModuleList ml = new ModuleList();
         AppState state = new AppState(ml, new PlannerList(), new UserProfile("Test User", 3.50));
-        DoneCommand doneCommand = new DoneCommand("SEP1001", 4);
+        DoneCommand doneCommand = new DoneCommand("SEP1001");
         doneCommand.execute(state);
         CountCommand cmd = new CountCommand();
         String result = cmd.execute(state);
@@ -63,7 +63,7 @@ public class CountCommandTest {
 
         for (int i = 1; i <= 41; i++) {
             String code = String.format("EX%04d", i); // EX0001, EX0002, ...
-            DoneCommand doneCommand = new DoneCommand(code, 4);
+            DoneCommand doneCommand = new DoneCommand(code);
             doneCommand.execute(state);
         }
 

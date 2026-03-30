@@ -1,7 +1,6 @@
 package seedu.duke.command;
 
 import seedu.duke.appstate.AppState;
-import seedu.duke.module.ModuleList;
 
 public class AddToPlannerCommand extends Command {
     private final String moduleCode;
