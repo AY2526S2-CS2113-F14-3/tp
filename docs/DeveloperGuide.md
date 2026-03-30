@@ -313,7 +313,7 @@ The diagram below shows duplicate module check path:
 
 The diagram below shows the key classes involved in the `list` commands and the `help` command, and their relationships.
 
-![Class Diagram of list and help Commands](https://img.plantuml.biz/plantuml/png/fLNHRjiW57stv7z0VihQkTfUhSXgrLHTfAQjb3xsXS1TWuR10gnDo_Bl0unZKzDjMf-2xpttt0ESIowrmSfq3S-pFQE025E4GvxfRqoqME464OwrlZ96iLrdO4sasBAVW3xbMPxv72eEUAUDmiGSdyMrR1eiQ86mHc6D3dc6q3dy068P5hXjjmORgD1LM7seqDRoYvSyEuwqTqmRoz1oC43_bsfAjXOaqBrVs3q0VR-gBy3RYACqicLaHFyhgwtKU_dz5WGep1tjOfvTWS6C0_Nfg56C5L8rc3CDJmwpi4ReJ1gvwnZtT1li6zgVPP_-663rgnq_OgL1zPizMEyPHexel7NHS12pVY6Ug5X90JEu2vvA9hSsd5guh1Sm6qax3bwtNxbxZKh6S2ZYKqlsMHqVj8UCHdiRqniedRVQKbsSa6N_NITq1WSHII6wfCPUCnEcju4zWKuF6zxwBz-IwLD7rsed9GSi1ZKFwbR9BlAKRm-YQo8kj5owc3MXOLBKTQzfVN_zi7cyktcwSL_3UXL8XW5O_YhBvD0d8BDHJc2Y4NsLdmnUdWLFNbpKwJUdGaI1TOwUGUSlojlO-CL8uwRlmGIHL5MMzUZf2bairUYhaasFdqlxIq6ixm_WKzXX9YDIeRtarCgTn8hF1JgpvrsS5ODBxRwai0-HE24dHC55bWhRz2K8Ql-QVWC0)
+![Class Diagram of list and help Commands](https://img.plantuml.biz/plantuml/png/fLNBRjim4BmBq3yGEhbf7RHNmn0Is45g84u2ECTUQ6bh4wL8WQJGHvf_xvAY7hJefe-JHExix8WxIrrfGvLfAfucXXaEPCMfrcJDw47HQa4uquPGKP8Zy9giP5NPXGE1JfCqER8IIC5KmI5Dz1ScQeg9fB28QsCKspS6DeKKE_O3o7kRuc8aUwPxRHGjpCiduOapGdLVv3bD21b0v2ryWmB9PhIkTuOQM91h__PcGNPOIXpIv6MeS8VQaQpcOA0CMF-2Qaos4OMd-rUsWUiUeFn_LH-nAm77tCYQ5GFwJranKn_brriGe2YtjBDfT0s6CWwb2mU5GgoGggBe77Yoc1bweZ5nvBvXtD5jgIk8ZsKRVkTX-SaNFrAbGNbpe7aDAz0QjTtr1p6fv_SZ6MifO0AtcttAg6lTgVbc7S1iPTbmSBhTc-rha39i-oG-jcGRrU51EyXWjFEOra3nE6gBLR52bkqwZ-Zq3Yfa2K6JAcmp4wQr0Pv0exiFthcLAybqNz6Msal9WOfEpOEwLR89FENAWsYgW8iibtOFJMYO57dUQjhShnwsZtStJpTsrRslFKat0CkVytbqw2EGoIX7CC68diH7WvSctfENbtdypbcGGW4wHq-WqnlbF3QyCUAuyNqmGaHLMNplwGL1RAd9PoMh5Z-Lzaf2gEyLS5JDQ5nGFELS_qxAEVHKHmpPQvlFJm17oKi4ZFQo3ncvmAPd5ratAiWZ1Tw6eaSw8eiCx8nqTFXFEhj3LPllf89g3mf3Lo1Az__z1G00)
 
 ### `list` Commands Implementation
 
@@ -458,17 +458,88 @@ private String showDetailedHelp(String inputTopic) {
 
 The diagram below shows the execution path for `help`:
 
-![Sequence Diagram for help](https://img.plantuml.biz/plantuml/png/VP51QiCm44Nt0jrXyCfTv09Ub80BpIABWEa11dcmHMr9aSPEZz-H7LFZGDV_pNyVwPmO8q_Ze1LR7WWQka_a3C67nIxYM45FGu3QZoEwLYiqx2Dy9OfQ1JcrnWPq34LrG-wltdmNW0bkrzSuoj4Q7hEBA9w61RZKMccL9N1wboweeCWpYiLlPsHQ35f9bWa1Gkv_bfGh_RR75nfEMzzEMGhNqaR-jLvguUY7pCHKOWWDIxplN6SAji6fzuzFSXHnoFtb_p17wxgZEWFRnYxwAL0BPjq9VgOuMtf0yt8AssovNTvD7aGOJX0fJGCVDMTohVpwBm00)
+![Sequence Diagram for help](https://img.plantuml.biz/plantuml/png/RP4nReGm44LxIxx3Y8eKUm6AQ2KYXMABbL0EO9aHM07RiGSsny_OG8BOrF_DVr_sDP8AD4-Z56HeH6ZnQqQh4TwCweEQAXXmz52xQLAsaq9fSW4-8WOfF9yQRRoo14LrLpJSdFuiG4MutvxZm4ThUCuQLco633Ir558a2LnUkGigADAC8llDeWYpGGhE4i60J_rRIRdIBqSyqt3P-mxAahaET_AljQcPms_KCs6fl6-9usFdEfEn7Ow3UxoZnQ36r5_-3__I58pjp-wDo2Fxu6QF7UXrABW5msBm0UtJAUox-JO_7By8CnGXO9n7EckkQBlyxJy0)
 
 The diagram below shows the execution path for `help done`:
 
-![Sequence Diagram for help done](https://img.plantuml.biz/plantuml/png/XP9DJiD034RtSmehgx0e1yW2LMeNNHIfKk409cEQ4VF7Z0ESW0DmH4w2fqsgq1An_fxVvyIpp8o9UsSL6xO4UthjoRS4QuE7XAw1Zcm47Jp1AZY7NYk5BOS4ZvcIYZ9jMXFHCrJD3hdRXlQb0iomsrwbIKPEsKMqaP91VymtAwMA7nPtue46glCQLQatRyXK6fIaXH4a5lqWgIVypMH0U5YCpabfNGsefX4UrPkLeFH1RSzKOunxbd3YBAiACvAv2-zhOZIMT2auc-S6ddfZZ-GzndeUwqx4hmKdiG_9eJMP7a8qxLWAtvzVK5tyjQcu0Kx6ET9ptg7sza3yxvSaohtbETDpsP2PzEb5xQNO7wxWyJR_q-KwGXzVYHnVSiv_hR0ah-Lz_m00)
+![Sequence Diagram for help done](https://img.plantuml.biz/plantuml/png/ZPDBJiCm48RtaNA7KLPXKGwG1QgKBh8eKgN20KmyD1P-OK-04t00ZiX9i9sQHg6jMC_tFsoFrvwOer79iY114c6FhoFg7c4ZsC4nrS20qW8t6g4rIZ7Dow8iM4_6mQD7LnOsE8XUMAO9gcR7QDYQ_gK2vc6t_JjsGJGDbxCk91qp4j2rCIg6mEekU443rM-RAfKGRummnPH5028MA1j3ZaxrJ78proG9hBBpBBokCiqnywU0hWqqVc0_4jRCsZs5yTnvgXsm3Fl1l6-Gc938Oyp9_xBcQHGomVVCrkV9Z0uJjMmxCzF6AIQ5nmTZHP_ZuVlp2whbNIxy6o0db49-nVvOuFQ0TFLecNVeHqdd33Fn70iJ8P-sRnywwCC5GNgzVmdY-mL1MgYm904XVw7C6ZLFl-87)
 
 #### Why This Design?
 
 Storing all help content in `buildHelpMap()` as a `LinkedHashMap` means that adding a new command to the help system requires only one change, a new entry in the map, without touching control flow or the general help string separately.
 
 `normaliseTopic()` acting as a pre-processing step keeps `showDetailedHelp()` clean. If future commands have aliases or shorthand (e.g. `lc` for `list completed`), `normaliseTopic()` is the only place that needs updating.
+
+---
+## Implementation: Brian
+
+### Class Structure
+
+The diagram below show the key classes involved in `UserProfile` and `ProfileStorage`.
+
+![Class Diagram for UserProfile and ProfileStorage](https://img.plantuml.biz/plantuml/png/RLFBJiCm4Bn7oZ_iCLLfuPm3AYe28V6eg107n65hczHgR4UsKo4G_yuwhTEuRIvnTcTcPoV9p7cqlbLrdkMPbxuMCA_HERYLM5bK9RmvOHVMV4bgeUQmFo-ziLY9G5jBBe19osfwT1kf6oGciA1puxsLgzQB1sRqKlu8k0gKhfT8_-OPq3K1ZKgKi2IQhcAjQh04RjfLc11Auo6t658kXk1HH5V2FnEe6ANANUE-mL1FvQd-AfXHIcWk-1D-lnkxgGto09NQvzdVOOyqaiCg9B9lBT2lYvOi3wsUc0dwSQSpuC7AaU5mAoAZsTqJ7B6sHlBKBNbvD6mJVOv1eTG5sih5OH-VFR7VvCNEhK3VZtCCjHQMABl3EOCJ85EgyNV6XfJFK6BgdR_UsNHwVHng2PI8Ey8CFw0IMESlO5BgAJ84xIv3U8IUqIkc7-0V)
+
+### UserProfile Implementation
+
+#### Overview
+
+The `UserProfile` class stores the user's name and GPA, and uses the GPA to derive a recommended maximum semester workload in MCs. This profile is created once at startup, either loaded from file via `ProfileStorage`, or created fresh from user input.
+
+Each user profile is stored at:
+`data/users/<username>_profile.txt`
+
+Format:
+`NAME|GPA`
+
+Example:
+`Alice|4.50`
+
+### Design
+
+The profile creation and workload recommendation flow follows this pipeline:
+```
+PathLock (Main) → getOrCreateProfile() → ProfileStorage.loadProfile() → UserProfile
+                                       ↘ (if not found) prompt user → UserProfile → ProfileStorage.saveProfile()
+```
+
+### Implementation
+
+**Construction**
+```java
+public UserProfile(String name, double gpa) {
+    if (name == null || name.trim().isEmpty()) {
+        throw new IllegalArgumentException("Name cannot be empty.");
+    }
+    if (gpa < 2.0 || gpa > 5.0) {
+        throw new IllegalArgumentException("GPA must be between 2.0 and 5.0.");
+    }
+    this.name = name.trim();
+    this.gpa = gpa;
+}
+```
+
+**Recommended Max Workload**
+```java
+public int getRecommendedMaxWorkload()
+```
+
+Maps the user's GPA to a recommended MC maximum workload per semester:
+
+| GPA Range     | Recommended Max Workload |
+|---------------|--------------------------|
+| 4.5 and above | 32 MCs                   |
+| 4.0 – 4.49    | 28 MCs                   |
+| 3.0 – 3.99    | 26 MCs                   |
+| Below 3.0     | 24 MCs                   |
+
+### Sequence Diagram
+
+![Sequence Diagram: UserProfile and ProfileStorage](https://img.plantuml.biz/plantuml/png/jLLDIyD04Bq7yXz6JnPg4S5BaLBHuaMbM4IlOp9DboQxSRFn0_pnpiQqsQJRKaLJ2DlPdVVUphmXuyAWDcMMXe4H9YMOqKj9CYAu4fXep8RmK92UQZKNl8ioXdezCqfZGc604Q-gKs6GCvY8H8xIm1JDuaP5oqwqa-tkEKnX40RsBnoFra0mX1HB6Iq0yxpY5Qzeo24AW_LPpgloXt0uaOON7whK834ZZdYnxLuNegtM2b0Ory4Zcz1pTNIknb3jT1zWGgQEMTvVOFf0PqOBcOH1J3k0c2KraDUThLxqBWfJX07miuTsJHZ3tSNjvFDwUW5phJBuxftDtyfiD_qKFexlapikiXrkrB8kDvZUt4XLwpuaEVOwYbi-RF1Tj4sjcrBTtEqNRWnOu2l5BTx6YewT7ocDL4RmZD6o3-Vs5gC3jZIb1QtRAPM1kIfbl0-nBDEqI-WT7zlcezF12HW5PuEJNZLAgz9qnedhwiVynuOqxBbxsj-IdNDkUx6ILMFrzfwBDorOz7emk5X_FHO_cGgVXrPLgomtW7jYHsKaOueXm_SXFC7jPN6uWY5h8_iRyug_5Ly0)
+
+
+### Why This Design?
+- GPA validation at construction time prevents invalid state from continuing through the app
+- Centralising the GPA-to-workload mapping in `UserProfile` means the thresholds only need updating in one place
 
 ---
 ## Implementation: Ryan
