@@ -42,7 +42,7 @@ The storage component:
 
 The diagram below shows the key classes involved in the `done` and `remove` commands and their relationship.
 
-![Class diagram of done & remove command](https://img.plantuml.biz/plantuml/png/bLN1Rjim3BqRy3y8EJbTKsnNemXQj1aGeDsAPkXf5rRYKg6oP4Xo42pBlq-oBKTAt6xD9HBro4SzKlILiQ1jKuayU-4C2UMQ2impowr0SYF067BBOQsXAWbJ4Wb8HZHMQkEELLNvRGj3asVcbSiQ79PGRxgsLlFdnkAIAhdYlv5yphCyWsTZDL3RWSXa5mpxdpB4d10mG_nTdX7t-uHRf2vQ0NMzic2n9DVzQbgIbUEIwppRUuekygtBzoZ6h5Ai4SxAyE3I7T2IBAN5DUgFqBM-Buv1eFVM4iHzIr5qJ6OSkzZ-0njTux5L-tylyc6L7a0Rr8F8EzSHbjCzgRszPorSNHiRt5sStZxgusK_SOXgaR27t0R-DTfU5EVLhUwuiOdJmJou0ME9bh4mqmDcLFSOUqvy8t1fWrFNws_7BicpKW91zdXk7f6gjUG6tydesClVcdvL-ZqFbzG1xRIi1Th0ORnQNf3BRZyVqMje7JhU_KFycIzdOuBygtRNKrUWNmVkOXfPbvAUsBc9iD6TJt9x0i4PM3NIXvlkg2-1rwIW8yKznTCYUjDlmePNImlJrBNWoCu9RckargyyrJH9UEMoX3MU9cfWCxpaj1Y1N2XWRnGAPLEvKUZ_KBjuIlff61UW7Ocn8MIm_7Rp_VxXRl5ZqUt3xhOF7IR7vP_PB7s7oKaoPlAi7miN5_DaZfQ4QdIocGIHZgW84xlEPlF3So_THmIO8R-qgl8izNy7E9Wz9Xe39NbHWeqG9XWAGXnXVFR7BLWEpM78XiDOUcDX8zlaYwl3X9mvMITda_3-75992rocO9z2QAgoxQAUjdSxyFLrTvS5uojxXPAvR_TV)
+![Class diagram of done & remove command](https://www.plantuml.com/plantuml/png/bLHFJni_4BtlfnZjAU57qA_N5K8We58aQ16fUkfbiAU9XTTUsRCHRSfthyskzmyRelIqw_5xyppFCxxqZ8xhKcSR9Gc4Sa9JneermRL6x-56uTfXMO2qXW2D14UbtOPjMvPXsS38P_vPcGe354ICN34xzLGpBOKrA_MRuFz6WygAVq59lB7IPna-UNOek651lak1rnycQUI0ljFRPG00_z4BYP1zXbMrOcGguAhzcnUm2jfcdRrccMYAi8R6_4LfPQr3K5A2jt5HmD8mhSaTAPIOcv1TK-GwW_h-BV-iaV5xeRSl1w7zyH-ZuqSMy6_6FA3pv9AdEnzWIhn25S99RwPCLNEYXXnjV1yb-Zp13yplXTEPalIQkBKXC9g_E-Mv9_InH44fMyhKYda7IIP_23s5UENASCjfsllZp0KyMQi9JGDN_f64NHlbIHv5IjMApzOT8YZ37JZOLsdYfE2ZIT6AysPzyTwcr2DYRtkdp8juTxLFVg_ULercYUwv4vtD--3IYFTXvNjaN-Zx8tr7hIIodJRRjjcX-yw5cPXUvHGkPeDP_GYLnZ6WVLrLMf4y1NgfI73yYqBp_gWhjWxND3cYnsqtdsFdMrrjKUwx539r2VakViWXAslYipRqExvjeq0hllno_VN-uUxss-tRCYrkOjRq4fp_MIo6upNU6BqQMJlfPsSNGmOK81mXany04dC26H83hX_Y0W92UlZfR9drxCEuBhfON0p7ku2DrNAYDeO8r7e2cRHQqVM1Xwt2TBJ3IGUX_1C0v70ItCnFyXOSWTOmAZF2ncofVuhOCOrc0-cBJDSSoqIVPPTaP5tglm00)
 
 ### `done` Command Implementation
 
@@ -344,6 +344,9 @@ if (input.equals("prereq")) {
 }
 if (input.startsWith(prereqPrefix)) {
     String moduleCode = input.substring(prereqPrefix.length()).trim();
+    if (moduleCode.isEmpty()) {
+        throw new MissingCommandException("Please input module code after 'prereq '");
+    }
     return new PrereqCommand(moduleCode);
 }
 ```
@@ -354,6 +357,17 @@ if (input.startsWith(prereqPrefix)) {
 2. `ModuleList.getPrerequisites()` looks up the module in `allModules` and calls `Module.getPrerequisites()` to get the prerequisite list.
 3. If the module is not recognised, a message is returned. If recognised but has no prerequisites, a different message is returned.
 
+#### Sequence Diagram
+
+The diagram below shows the execution path for `prereq CS2113`:
+
+![Sequence Diagram for prereq Command](https://img.plantuml.biz/plantuml/png/ZLJ1QkCm4BqN-W-3JsaWfTtsP4feS8ys148_GDYphgWjkz9usSzVZKPA7Bk5pSN8yzwRzqOJ0xmwKfQclhkz0N2VsepAgXuSVareQgpGETNYeTEjWHeDeMKWQUeGjjjJXC6RLgtdvJ1QjFW5nT3toZJRBQDLJOE5ToTStu1qhKTb2BBygEYZ7EhF39I3Oxa279NrFAb-mmxTOZC15MlKOHnFf0W3u71Q0wgXcJeijQC0gTOs8aJAjpTSvpomstlJa4EMSfz-FJu-PLptxxdgYoDdY2Ot2-HT793-umrAH83QOZWLSZm6eS8hlRn8QR_VP7E1kKGY5R1ZMYx71jS80R3zkc_utHma8MC8xer_iPu8DofES-4yY7BJlH-nXxT8ChFDDL3cxo6x9Dm7c5iOODn5iYf5KYvyqauJkkiPd9boVLLvvgck4olktalCMO7NKRG0PY3uFKocaG69IB8PQQ1Tm2cmM0-jqGwRoByFzuwTmoIu4lEElWjobp2N46TMS11ooERmcgRYR5vnAuE8JsI628yjKksdL1_AhJYIXtyX4qF-J_Cgd1-2ZTkUy_FX-Q6u2CjumcEn07oDQG7IdbfqKqVBLItIfdfO-5VogBGXDyE_-XR-A_SF)
+
+#### Why This Design?
+
+`PrereqCommand` is deliberately thin — it retrieves `ModuleList` from `AppState` and delegates entirely to `getPrerequisites()`. This keeps prerequisite lookup logic in one place (`ModuleList`), making it easy to test and modify without touching the command class.
+
+---
 ### `postreq` Command Implementation
 
 #### Overview
@@ -382,13 +396,58 @@ Identical pattern to `prereq` — checks for the `postreq ` prefix and throws `M
 2. `ModuleList.getModulesUnlockedBy()` iterates through every module in `allModules`, checking if the target module code appears in each module's prerequisite list.
 3. Matching modules are collected and returned as a formatted string.
 
+#### Sequence Diagram
+
+The diagram below shows the execution path for `postreq CS1010`:
+
+![Sequence Diagram for postreq Command](https://img.plantuml.biz/plantuml/png/pLLDZvim4Br7odyOSMAZ9ifMFQ5Lj2azWeGKxGzmOHgi69l5GzNy-_gBn25jrLEqlY0pRzwyUJE8LqrieB4Jy57ESW6WJrpsR60TQ7mVKTPOejRiY7l1Zn9gb8J3mrKH9u6mMXs29lZ6sT68pA1NcWPyXrnr7PFDQlL0LQmcDS2RVh0X_pXMbPaUyPhtJ18aMSMeBLHzIe1fg8gFeQfYWp7DI_g3P3_IC56FokzX-xu_42DqWFtX7b2gPXHOS4qEKXP_W_ZmSc7ZRfhhdRKgW-IoNOVdxVCsiG0Ji64JxMqNGMKwXpw51U4_ZKJV9K0zeBlb_bevfjnGlRpuq6wN9Z51J34bvR2sQPc_DdYFy03RGDqrzbqCycs6Bcnj_8NrI9YouETCkIErHNV6P0C_8ddNqbkWdu21h2VYpi7qJ835NIdB8gRKRrAONSNcw_dMXqks7Q9z8PJgmP2seGfm2Ko8ybhIdj9rMVeIrO1cFYFNd52dJnFcIdt9SYquPRtBiIiq1QDEobaPPtYBzGduZoWJQYM9SQaXYTO8PUCxOO90giai68C3CVTaQCY7HXcWL1J0mEGP5BLcSGFBnfSG6g4rg_rVtEKC1D_FOPSpy_oy_RBDFy5cixbL7zjHN0SxxT-0UXGqNy5ysa03Sz-RDPfBqX7-rPGm_yRbuZS0)
+
 #### Why This Design?
 
 The split into separate `PrereqCommand` and `PostreqCommand` classes (rather than a single command with a flag) follows the Single Responsibility Principle. Each command has one clear purpose and can be tested independently. The reverse lookup in `getModulesUnlockedBy()` avoids the need for a separate "post-requisite" data structure — it reuses the existing prerequisite data by searching in the opposite direction.
 
 ---
+### `count` Command Implementation
+
+#### Overview
+
+The `count` command displays the user's MC progress towards the 160 MCs required for CEG graduation. It shows completed MCs, remaining MCs, and percentage progress.
+
+#### Design
+
+```
+PathLock (Main) → Parser → CountCommand → AppState → ModuleList
+```
+
+`CountCommand` is the simplest of the three commands — it has no fields (unlike `PrereqCommand` and `PostreqCommand` which store a module code). It retrieves `ModuleList` from `AppState` and delegates entirely to `ModuleList.countMcs()`.
+
+#### Implementation
+
+**Parsing**
+
+```java
+if (input.equals("count")) {
+    return new CountCommand();
+}
+```
+
+**Execution**
+
+`CountCommand.execute()` retrieves `ModuleList` from `AppState` and calls `countMcs()`, which iterates over all completed modules (both internal and external), sums their MC values, and returns a formatted progress string.
+
+#### Sequence Diagram
+
+The diagram below shows the execution path for `count`:
+
+![Sequence Diagram for count Command](https://img.plantuml.biz/plantuml/png/pPJFQiCm3CRlXRw3oAaBz0L22ItPCG53sGCOHsIcYPFQojZZpxBT_KdN7Rlw5Ci_Ivy_YUmTIKlpqCEZhFKAm9sqcQIL0pWypsWKDkYSxF3Gwyw0GaDexwo9DFK8UNvCYk1PoyvBB42Dio6enc6GfitpkwgIYaOBB-wkTlovM9Nl7Mcb9-bzoGeXwRKUrIa3wK3KZw5AIEjDYvB-HT5lJbKyIMcGWhIgkeOEqtGaIHY0m_4QQCPsxh7MZWBIrEiLGs58jYLte80i36t6SR_dg0zEx4aglqd4Kveo_UPBWk2TiiZVKPlWorNbR-zsyQ0iDpylHT0pMwvJyAR5nQc8XonD3Uq24V41KMYeXU-ePiADJ5xSAbXwWppU8KLJ5igYUnxPNX8F0NCB0SnzfMo2IdQdKMwHaSq69ZupMdHpJuk4bvvSJAblWScTc2zqqBV9QaFk6xz7q_fV-7hr0G00)
+
+#### Why This Design?
+
+`CountCommand` has no fields and no branching — it is a single delegation to `ModuleList.countMcs()`. This keeps the command class minimal and puts all MC calculation logic in `ModuleList`, consistent with how `PrereqCommand` and `PostreqCommand` delegate to `ModuleList` for their respective lookups.
+
+---
 ## Implementation: Kailer<br>Planner Feature Classes
-### Class Structure 
+### Class Structure
 
 The diagrams below show the key classes involved in the planner feature and their relationships
 
