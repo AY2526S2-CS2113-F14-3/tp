@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 import seedu.duke.module.Module;
 public class PlannerList {
-    private ArrayList<ArrayList<Module>> course;
+    private final ArrayList<ArrayList<Module>> course;
 
     public PlannerList() {
         course = new ArrayList<>(8);
