@@ -872,4 +872,66 @@ database or internet connection.
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+### Launch
+
+1.  Ensure Java 17 is installed.
+2.  Build the project: ./gradlew build
+3.  Run the application: ./gradlew run
+
+### Loading a Profile
+
+-   Enter existing user: alice Expected: Profile loads with saved data
+
+-   Enter new user: newuser Expected: New profile created
+
+### Marking Module Completed
+
+done CS2113 Expected: Module added and saved
+
+done cs2113 Expected: Converted to uppercase
+
+done GEC1001 /mc 4 Expected: External module added
+
+### Removing Module
+
+remove CS2040C Expected: Module removed
+
+### Listing
+
+list completed list incomplete list needed
+
+### Help
+
+help help done
+
+### Prereq / Postreq
+
+prereq CS2113 postreq CS1010
+
+### Count
+
+count
+
+### Planner
+
+planner add CS2113 y2s2 planner list planner edit CS2113 y3s1 planner
+remove CS2113
+
+### Save and Load
+
+-   Exit and relaunch Expected: Data persists
+
+### File Format
+
+data/users/`<username>`{=html}\_modules.txt Format: CS2113\|4
+
+data/users/`<username>`{=html}\_profile.txt Format: Alice\|4.50
+
+### Invalid Commands
+
+abc done planner add
+
+### End-to-End Test
+
+done CS1010 done MA1521 list completed count planner add CS2113 y2s2
+planner list
