@@ -73,6 +73,9 @@ public class Parser {
                 return new AddToPlannerCommand(moduleCode,semester);
             }
             if (input.startsWith("edit")) {
+                if (input.length() < 14) {
+                    throw new MissingCommandException("Please input module code and semester after 'edit '");
+                }
                 String param = input.substring(5);
                 int seperator = param.indexOf(" ");
                 String moduleCode = param.substring(0, seperator).trim();

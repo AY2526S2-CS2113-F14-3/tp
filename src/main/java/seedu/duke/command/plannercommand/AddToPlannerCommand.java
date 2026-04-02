@@ -31,8 +31,11 @@ public class AddToPlannerCommand extends Command {
         }
         try {
             module.setSemester(semester);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             return e.getMessage();
+        }
+        if (module.isPlanned()) {
+            throw new IllegalArgumentException(moduleCode + " is already in planner");
         }
         planner.addModule(module);
         try {

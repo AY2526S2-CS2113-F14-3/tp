@@ -55,6 +55,7 @@ public class PlannerList {
     public void addModule(Module module) {
         String semester = module.getSemester();
         course.get(getSemesterIndex(semester)).add(module);
+        module.setIsPlanned(true);
         // Assertion to check if module was successfully added
         assert containsModule(module.getModuleCode()) : "Module should have been added successfully.";
     }
@@ -148,6 +149,7 @@ public class PlannerList {
                 Module currModule = currSem.get(j);
                 if (currModule.getModuleCode().equals(moduleCode)) {
                     currSem.remove(j);
+                    currModule.setIsPlanned(false);
                     isModulePresent = true;
                     break;
                 }
