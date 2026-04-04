@@ -135,7 +135,7 @@ Format:
 `NAME|GPA`
 
 Example:
-`Russell|4.5`
+`Kailer|4.5`
 
 ### Design
 
