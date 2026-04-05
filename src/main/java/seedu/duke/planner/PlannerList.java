@@ -16,40 +16,55 @@ public class PlannerList {
         assert course.size() == 8 : "Planner should have exactly 8 semesters.";
     }
 
-    public String list () {
+    public String list() {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < 8; i++) {
-            switch(i) {
-            case 0: output.append("y1s1:");
-            break;
-            case 1: output.append("y1s2:");
-                break;
-            case 2: output.append("y2s1:");
-                break;
-            case 3: output.append("y2s2:");
-                break;
-            case 4: output.append("y3s1:");
-                break;
-            case 5: output.append("y3s2:");
-                break;
-            case 6: output.append("y4s1:");
-                break;
-            case 7: output.append("y4s2:");
-                break;
-            default:
-                break;
-            }
-            output.append("\n");
-            ArrayList<Module> currSem = course.get(i);
-            for (Module currModule : currSem) {
-                output.append(currModule.getModuleCode());
-                output.append("\n");
-            }
-        }
-        // Ensure the output format is correct
-        assert !output.isEmpty() : "Output list should not be empty.";
 
+        output.append(formatYearBlock("Y1", "Y2", 0, 1, 2, 3));
+        output.append("\n");
+        output.append(formatYearBlock("Y3", "Y4", 4, 5, 6, 7));
+
+        assert !output.isEmpty() : "Output list should not be empty.";
         return output.toString();
+    }
+
+    private String formatYearBlock(String leftYear, String rightYear,
+                                   int leftS1Index, int leftS2Index,
+                                   int rightS1Index, int rightS2Index) {
+        StringBuilder block = new StringBuilder();
+
+        block.append("+----------------------+----------------------+\n");
+        block.append(String.format("| %-20s | %-20s |\n", leftYear, rightYear));
+        block.append("+----------------------+----------------------+\n");
+
+        appendSemesterRows(block, "S1", course.get(leftS1Index), "S1", course.get(rightS1Index));
+        block.append("|----------------------|----------------------|\n");
+        appendSemesterRows(block, "S2", course.get(leftS2Index), "S2", course.get(rightS2Index));
+
+        block.append("+----------------------+----------------------+\n");
+        return block.toString();
+    }
+
+    private void appendSemesterRows(StringBuilder output,
+                                    String leftSemLabel, ArrayList<Module> leftModules,
+                                    String rightSemLabel, ArrayList<Module> rightModules) {
+        int maxRows = Math.max(Math.max(leftModules.size(), rightModules.size()), 1);
+
+        for (int i = 0; i < maxRows; i++) {
+            String leftText;
+            String rightText;
+
+            if (i == 0) {
+                leftText = leftSemLabel + ":"
+                        + (i < leftModules.size() ? " " + leftModules.get(i).getModuleCode() : "");
+                rightText = rightSemLabel + ":"
+                        + (i < rightModules.size() ? " " + rightModules.get(i).getModuleCode() : "");
+            } else {
+                leftText = i < leftModules.size() ? "    " + leftModules.get(i).getModuleCode() : "";
+                rightText = i < rightModules.size() ? "    " + rightModules.get(i).getModuleCode() : "";
+            }
+
+            output.append(String.format("| %-20s | %-20s |\n", leftText, rightText));
+        }
     }
 
     public void addModule(Module module) {
