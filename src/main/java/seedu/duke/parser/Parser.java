@@ -2,19 +2,22 @@ package seedu.duke.parser;
 
 import seedu.duke.command.Command;
 import seedu.duke.command.DoneCommand;
+import seedu.duke.command.plannercommand.PlannerSwitchCommand;
+import seedu.duke.command.plannercommand.AddToPlannerCommand;
 import seedu.duke.command.plannercommand.EditPlannerCommand;
-import seedu.duke.command.plannercommand.ListPlannerCommand;
+import seedu.duke.command.plannercommand.RemoveFromPlannerCommand;
+import seedu.duke.command.plannercommand.PlannerListCommand;
 import seedu.duke.command.RemoveCommand;
 import seedu.duke.command.ListCompletedCommand;
 import seedu.duke.command.ListIncompleteCommand;
 import seedu.duke.command.ListNeededCommand;
 import seedu.duke.command.CountCommand;
-import seedu.duke.command.plannercommand.AddToPlannerCommand;
-import seedu.duke.command.plannercommand.RemoveFromPlannerCommand;
 import seedu.duke.command.PrereqCommand;
 import seedu.duke.command.PostreqCommand;
 import seedu.duke.exception.MissingCommandException;
 import seedu.duke.command.HelpCommand;
+import seedu.duke.command.SwitchUserCommand;
+import seedu.duke.command.plannercommand.ListPlannerCommand;
 
 public class Parser {
 
@@ -48,8 +51,17 @@ public class Parser {
             return new RemoveCommand(moduleCode);
         }
 
+        if (input.startsWith("switch")) {
+            if (input.length() < 8) {
+                throw new MissingCommandException("Please input username after 'switch '");
+            }
+            String username = input.substring(7).trim();
+            return new SwitchUserCommand(username);
+        }
+
         if (input.startsWith("planner")) {
-            input = input.substring(8).trim();
+            input = input.substring(7).trim();
+            String[] parts = input.split("\\s+");
             if (input.equals("list")) {
                 return new ListPlannerCommand();
             }
@@ -64,6 +76,9 @@ public class Parser {
                 return new AddToPlannerCommand(moduleCode,semester);
             }
             if (input.startsWith("edit")) {
+                if (input.length() < 14) {
+                    throw new MissingCommandException("Please input module code and semester after 'edit '");
+                }
                 String param = input.substring(5);
                 int seperator = param.indexOf(" ");
                 String moduleCode = param.substring(0, seperator).trim();
@@ -77,6 +92,18 @@ public class Parser {
                 }
                 String moduleCode = input.substring(7).trim();
                 return new RemoveFromPlannerCommand(moduleCode);
+            }
+            if (input.startsWith("list plans")) {
+                return new PlannerListCommand();
+            }
+            if (input.startsWith("switch")) {
+                if (parts.length < 2) {
+                    throw new IllegalArgumentException("Planner name required.");
+                }
+                return new PlannerSwitchCommand(parts[1]);
+            }
+            else {
+                throw new IllegalArgumentException("Unknown planner command.");
             }
         }
 

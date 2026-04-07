@@ -7,12 +7,11 @@ PathLock is a **desktop app for planning your CEG modules**, optimised for use v
 - [Quick Start](#quick-start)
 - [Features](#features)
     - [Viewing help: `help`](#viewing-help--help)
-    - [Profile creation: `profile`]()
-    - [Marking a module as completed: `done`](#marking-a-module-as-completed--done)
-    - [Removing a completed module: `remove`](#removing-a-completed-module--remove)
     - [Listing completed modules: `list completed`](#listing-completed-modules--list-completed)
     - [Listing incomplete modules: `list incomplete`](#listing-incomplete-modules--list-incomplete)
     - [Listing all required modules: `list needed`](#listing-all-required-modules--list-needed)
+    - [Marking a module as completed: `done`](#marking-a-module-as-completed--done)
+    - [Removing a completed module: `remove`](#removing-a-completed-module--remove)
     - [Counting MC progress: `count`](#counting-mc-progress--count)
     - [Viewing prerequisites: `prereq MODULE_CODE`](#viewing-prerequisites--prereq-module_code)
     - [Viewing modules unlocked: `postreq MODULE_CODE`](#viewing-modules-unlocked--postreq-module_code)
@@ -305,8 +304,114 @@ EE4204 does not unlock any other modules.
 ---
 ### Module Planner Commands
 
-#### Adding a module to your planner : `planner add MODULE_CODE y#s#`
+#### Displaying current planner : `planner list`
 
+Shows all mods the user has added to planner, separated by semesters.
+
+**Format** `planner list`
+
+**Example**
+```
+=======================================================================
+y1s1:
+CG1111A
+y1s2:
+CG2111A
+y2s1:
+y2s2:
+CS2113
+y3s1:
+y3s2:
+y4s1:
+y4s2:
+```
+> **Note** If planner list is empty it will still display the semesters 
+> ```
+> =======================================================================
+> y1s1:
+> y1s2:
+> y2s1:
+> y2s2:
+> y3s1:
+> y3s2:
+> y4s1:
+> y4s2:
+>=======================================================================
+> ```
+
+#### Adding mods to planner : `planner add`
+
+Allows the user to add modules for a specific semester in the planner
+
+**Format** `planner add MODULE_CODE SEMESTER`
+
+**Examples**
+- `planner add cg1111a y1s1` - adds the module CG1111A to y1s1 of the planner
+- `planner add CS2113 y2s2` - adds the module CS2113 to y2s2 of the planner
+
+**Example output (`planner add cg1111a y1s1`):**
+```
+=======================================================================
+Module CG1111A added to y1s1.
+Current workload for y1s1: 4 MCs
+[INFO] Maximum workload based on GPA 4.09: 28 MCs
+[WARNING] You are below the minimum workload of 18 MCs for this semester.
+=======================================================================
+```
+> **Note:** modules are not cap sensitive
+> 
+#### Removing mods from planner : `planner remove`
+
+Allows the user to remove modules from the planner
+
+**Format** `planner remove MODULE_CODE`
+
+**Examples**
+- `planner remove cg1111a` - removes module CG1111a from the planner
+- `planner remove CS2113` - removes module CS2113 from the planner
+
+**Example output (`planner remove cg1111a`):**
+
+assumption that cg1111a is in planner
+```
+=======================================================================
+CG1111A has been removed from planner
+=======================================================================
+```
+**Example output (`planner remove cs1231`):**
+
+assumption that cs1231 is not in planner
+```
+=======================================================================
+CS1231 is not found in planner
+=======================================================================
+```
+
+#### Editing mods in planner : `planner edit`
+
+Allows the user to change which semester modules are shown in planner
+
+**Format** `planner edit MODULE_CODE SEMESTER`
+
+**Examples**
+- `planner edit cs1231 y2s2` - changes the module cs1231 to be in y2s2 of the planner
+
+**Example output (`planner edit cs1231 y2s2`):**
+
+assumption cs1231 is in planner
+```
+=======================================================================
+Edited CS1231 to be in y2s2
+=======================================================================
+```
+**Example output (`planner edit cs2113 y2s2`):**
+
+assumption cs2113 is not in planner
+```
+=======================================================================
+CS2113 is not found in planner
+=======================================================================
+```
 
 ---
 

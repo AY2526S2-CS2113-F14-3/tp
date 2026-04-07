@@ -11,7 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class HelpCommandTest {
     @Test
     public void execute_generalHelp_returnsGroupedCommandList() {
-        AppState state = new AppState(new ModuleList(), new PlannerList(), new UserProfile("Test User", 3.50));
+        AppState state = new AppState(
+                new ModuleList(),
+                new PlannerList(),
+                new UserProfile("Test User", 3.50),
+                "Test User"
+        );
         HelpCommand command = new HelpCommand();
         String result = command.execute(state);
         assertTrue(result.contains("PATHLOCK HELP"));
@@ -21,13 +26,21 @@ public class HelpCommandTest {
         assertTrue(result.contains("list completed"));
         assertTrue(result.contains("done MODULE_CODE"));
         assertTrue(result.contains("remove MODULE_CODE"));
+        assertTrue(result.contains("MODULE PLANNER COMMANDS"));
+        assertTrue(result.contains("planner list"));
+        assertTrue(result.contains("switch USERNAME"));
         assertTrue(result.contains("help"));
         assertTrue(result.contains("exit"));
     }
 
     @Test
     public void execute_helpDone_returnsDetailedHelpForDone() {
-        AppState state = new AppState(new ModuleList(), new PlannerList(), new UserProfile("Test User", 3.50));
+        AppState state = new AppState(
+                new ModuleList(),
+                new PlannerList(),
+                new UserProfile("Test User", 3.50),
+                "Test User"
+        );
         HelpCommand command = new HelpCommand("done");
         String result = command.execute(state);
         assertTrue(result.contains("COMMAND: done"));
@@ -39,7 +52,11 @@ public class HelpCommandTest {
 
     @Test
     public void execute_helpListCompleted_returnsDetailedHelpForListCompleted() {
-        AppState state = new AppState(new ModuleList(), new PlannerList(), new UserProfile("Test User", 3.50));
+        AppState state = new AppState(new ModuleList(), new PlannerList(), new UserProfile(
+                "Test User",
+                3.50),
+                "Test User"
+        );
         HelpCommand command = new HelpCommand("list completed");
         String result = command.execute(state);
         assertTrue(result.contains("COMMAND: list completed"));
@@ -49,7 +66,12 @@ public class HelpCommandTest {
 
     @Test
     public void execute_helpUnknownTopic_returnsNotFoundMessage() {
-        AppState state = new AppState(new ModuleList(), new PlannerList(), new UserProfile("Test User", 3.50));
+        AppState state = new AppState(
+                new ModuleList(),
+                new PlannerList(),
+                new UserProfile("Test User", 3.50),
+                "Test User"
+        );
         HelpCommand command = new HelpCommand("nonsense");
         String result = command.execute(state);
         assertTrue(result.contains("No detailed help found"));
@@ -59,10 +81,30 @@ public class HelpCommandTest {
 
     @Test
     public void execute_helpTopicWithExtraSpaces_returnsCorrectDetailedHelp() {
-        AppState state = new AppState(new ModuleList(), new PlannerList(), new UserProfile("Test User", 3.50));
+        AppState state = new AppState(
+                new ModuleList(),
+                new PlannerList(),
+                new UserProfile("Test User", 3.50),
+                "Test User"
+        );
         HelpCommand command = new HelpCommand("   done   ");
         String result = command.execute(state);
         assertTrue(result.contains("COMMAND: done"));
         assertTrue(result.contains("done MODULE_CODE"));
+    }
+
+    @Test
+    public void execute_helpSwitch_returnsDetailedHelpForSwitch() {
+        AppState state = new AppState(
+                new ModuleList(),
+                new PlannerList(),
+                new UserProfile("Test User", 3.50),
+                "Test User"
+        );
+        HelpCommand command = new HelpCommand("switch");
+        String result = command.execute(state);
+        assertTrue(result.contains("COMMAND: switch"));
+        assertTrue(result.contains("Switches the current session to a different user"));
+        assertTrue(result.contains("switch USERNAME"));
     }
 }

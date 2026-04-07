@@ -5,45 +5,74 @@ import java.util.NoSuchElementException;
 
 import seedu.duke.module.Module;
 public class PlannerList {
-    private ArrayList<ArrayList<Module>> course;
+    private final ArrayList<ArrayList<Module>> course;
 
     public PlannerList() {
         course = new ArrayList<>(8);
         for (int i = 0; i < 8; i++) {
             course.add(new ArrayList<Module>());
         }
+        // Assertion to ensure planner is initialised correctly
+        assert course.size() == 8 : "Planner should have exactly 8 semesters.";
     }
 
-    public String list () {
+    public String list() {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < 8; i++) {
-            output.append("Semester: ");
-            output.append(i+1);
-            output.append("\n");
-            ArrayList<Module> currSem = course.get(i);
-            for (Module currModule : currSem) {
-                output.append(currModule.getModuleCode());
-                output.append("\n");
-            }
-        }
+
+        output.append(formatYearBlock("Y1", "Y2", 0, 1, 2, 3));
+        output.append("\n");
+        output.append(formatYearBlock("Y3", "Y4", 4, 5, 6, 7));
+
+        assert !output.isEmpty() : "Output list should not be empty.";
         return output.toString();
     }
 
-    private boolean isModuleInPlanner (String moduleCode) {
-        for (int i = 0; i < 8; i++) {
-            ArrayList<Module> currSem = course.get(i);
-            for (Module currModule : currSem) {
-                if (currModule.getModuleCode().equals(moduleCode)) {
-                    return true;
-                }
+    private String formatYearBlock(String leftYear, String rightYear,
+                                   int leftS1Index, int leftS2Index,
+                                   int rightS1Index, int rightS2Index) {
+        StringBuilder block = new StringBuilder();
+
+        block.append("+----------------------+----------------------+\n");
+        block.append(String.format("| %-20s | %-20s |\n", leftYear, rightYear));
+        block.append("+----------------------+----------------------+\n");
+
+        appendSemesterRows(block, "S1", course.get(leftS1Index), "S1", course.get(rightS1Index));
+        block.append("|----------------------|----------------------|\n");
+        appendSemesterRows(block, "S2", course.get(leftS2Index), "S2", course.get(rightS2Index));
+
+        block.append("+----------------------+----------------------+\n");
+        return block.toString();
+    }
+
+    private void appendSemesterRows(StringBuilder output,
+                                    String leftSemLabel, ArrayList<Module> leftModules,
+                                    String rightSemLabel, ArrayList<Module> rightModules) {
+        int maxRows = Math.max(Math.max(leftModules.size(), rightModules.size()), 1);
+
+        for (int i = 0; i < maxRows; i++) {
+            String leftText;
+            String rightText;
+
+            if (i == 0) {
+                leftText = leftSemLabel + ":"
+                        + (i < leftModules.size() ? " " + leftModules.get(i).getModuleCode() : "");
+                rightText = rightSemLabel + ":"
+                        + (i < rightModules.size() ? " " + rightModules.get(i).getModuleCode() : "");
+            } else {
+                leftText = i < leftModules.size() ? "    " + leftModules.get(i).getModuleCode() : "";
+                rightText = i < rightModules.size() ? "    " + rightModules.get(i).getModuleCode() : "";
             }
+
+            output.append(String.format("| %-20s | %-20s |\n", leftText, rightText));
         }
-        return false;
     }
 
     public void addModule(Module module) {
         String semester = module.getSemester();
         course.get(getSemesterIndex(semester)).add(module);
+        module.setIsPlanned(true);
+        // Assertion to check if module was successfully added
+        assert containsModule(module.getModuleCode()) : "Module should have been added successfully.";
     }
 
     public boolean containsModule(String moduleCode) {
@@ -55,6 +84,8 @@ public class PlannerList {
                 }
             }
         }
+        // Assert that the module exists in the planner
+        assert !moduleCode.isEmpty() : "Module code should not be empty when checking.";
         return false;
     }
 
@@ -133,6 +164,7 @@ public class PlannerList {
                 Module currModule = currSem.get(j);
                 if (currModule.getModuleCode().equals(moduleCode)) {
                     currSem.remove(j);
+                    currModule.setIsPlanned(false);
                     isModulePresent = true;
                     break;
                 }
@@ -147,5 +179,18 @@ public class PlannerList {
         editedModule.setSemester(semester);
         removeModule(moduleCode);
         addModule(editedModule);
+        // Assertion to verify the edited module is correctly placed
+        assert containsModule(editedModule.getModuleCode()) 
+                : "Edited module should exist in the planner after modification.";
+    }
+
+    public ArrayList<Module> getAllModules() {
+        ArrayList<Module> allModules = new ArrayList<>();
+
+        for (ArrayList<Module> semesterModules : course) {
+            allModules.addAll(semesterModules);
+        }
+
+        return allModules;
     }
 }
