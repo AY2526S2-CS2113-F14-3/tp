@@ -657,21 +657,7 @@ Key design decisions:
 
 **Parsing**
 
-`Parser.parseCommand()` checks for the `prereq ` prefix. If the input is bare `prereq` with no module code, a `MissingCommandException` is thrown. Otherwise, the module code is extracted and passed to the `PrereqCommand` constructor.
-
-```java
-String prereqPrefix = "prereq ";
-if (input.equals("prereq")) {
-    throw new MissingCommandException("Please input module code after 'prereq '");
-}
-if (input.startsWith(prereqPrefix)) {
-    String moduleCode = input.substring(prereqPrefix.length()).trim();
-    if (moduleCode.isEmpty()) {
-        throw new MissingCommandException("Please input module code after 'prereq '");
-    }
-    return new PrereqCommand(moduleCode);
-}
-```
+`Parser.parseCommand()` checks for the `prereq ` prefix. If the input is bare `prereq` with no module code, a `MissingCommandException` is thrown. Otherwise, the module code is extracted from the input (everything after the prefix, trimmed) and passed to the `PrereqCommand` constructor.
 
 **Execution**
 
@@ -747,11 +733,7 @@ PathLock (Main) → Parser → CountCommand → AppState → ModuleList
 
 **Parsing**
 
-```java
-if (input.equals("count")) {
-    return new CountCommand();
-}
-```
+`Parser.parseCommand()` performs an exact match on the string `"count"` and returns a new `CountCommand` with no arguments.
 
 **Execution**
 
