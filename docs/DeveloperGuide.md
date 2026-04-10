@@ -1,4 +1,4 @@
-# PathLock Developer Guide
+yeyes# PathLock Developer Guide
 
 ---
 ## Table of Contents
@@ -633,7 +633,7 @@ Maps the user's GPA to a recommended MC maximum workload per semester:
 
 The diagram below shows the key classes involved in the `prereq`, `postreq`, and `count` commands and their relationships.
 
-![Class diagram of prereq, postreq and count commands](https://img.plantuml.biz/plantuml/png/lLRFRzCm5BvFsl_mr5CRw0JNQAesiXqcjJ1fSEFYEe_MccC7sv60qlyTssaIkquhc2PwgHD_x_lUxnRWHXkYJ5Fnomi0_Sn4JHIfW7AYzQqnYgqRWmzKYYVs2-4T_EUFyshBIWJA5ENOFwvasN1yCiGq6YeqMrdgomjtRPZX25bMk0ZWZf6DZIU7Mg72xs-Xbjhu0n4bKDa80uMiAlVaBL1dMKlaKm2J7LbR2qBD_giu82T0T6-rSrZtUGC35F07KfkuAQbhvoJcS7iupN9uicaL6sUt3wKUlOi9xnnsjaQ6qJrmkTcWoc7flmT0vRDHo193yjQfY7MQ8cS3z4LEj_byTQyZsjTtkt2L_tUdNvWZeZIgg5CwcTfTTL7QuMjC7s3UjLZ2roc6Z1iqxKnChM5xMZ9j4jlXwiYwxPE6QMPGZoKyBLAlgRy8BkapbXz-_fsb7xmLrTFJIMkPmzhGaKwnNKHpOC8CB-em45j06-frQxGOSTqvEZqJ6r65mf8PxsgWCvApsIanfcqbQuu6ImTQIycHY2JYoGv5Kw6odI65tJRXZlCh9rfwVM8UFXQVLe_B-y_ttPlk-QwNS8Ukswz_p-VnLaXle-bBhiFXQRaF7NvrjJZQOZbGXRPLzJ4gNXkdOD6O1Y0FYuGSkf-B72omrF1DoMeS6eo1fIMSwv5w7dHYLyyBfTXnfNHkPbsLWeZFQYN84QLXpbhsdcm-Ny3a_IIssKhU_Oe6xnqiy_Yimpj-AGnX8e8ViHuQrV8INzSR5AN_e_47)
+![Class diagram of prereq, postreq and count commands](./Diagrams/ClassDiagram_PrereqPostreqCountCommands.png)
 
 ### `prereq` Command Implementation
 
@@ -669,7 +669,7 @@ Key design decisions:
 
 The diagram below shows the execution path for `prereq CS2113`:
 
-![Sequence Diagram for prereq Command](https://img.plantuml.biz/plantuml/png/ZLJ1QkCm4BqN-W-3JsaWfTtsP4feS8ys148_GDYphgWjkz9usSzVZKPA7Bk5pSN8yzwRzqOJ0xmwKfQclhkz0N2VsepAgXuSVareQgpGETNYeTEjWHeDeMKWQUeGjjjJXC6RLgtdvJ1QjFW5nT3toZJRBQDLJOE5ToTStu1qhKTb2BBygEYZ7EhF39I3Oxa279NrFAb-mmxTOZC15MlKOHnFf0W3u71Q0wgXcJeijQC0gTOs8aJAjpTSvpomstlJa4EMSfz-FJu-PLptxxdgYoDdY2Ot2-HT793-umrAH83QOZWLSZm6eS8hlRn8QR_VP7E1kKGY5R1ZMYx71jS80R3zkc_utHma8MC8xer_iPu8DofES-4yY7BJlH-nXxT8ChFDDL3cxo6x9Dm7c5iOODn5iYf5KYvyqauJkkiPd9boVLLvvgck4olktalCMO7NKRG0PY3uFKocaG69IB8PQQ1Tm2cmM0-jqGwRoByFzuwTmoIu4lEElWjobp2N46TMS11ooERmcgRYR5vnAuE8JsI628yjKksdL1_AhJYIXtyX4qF-J_Cgd1-2ZTkUy_FX-Q6u2CjumcEn07oDQG7IdbfqKqVBLItIfdfO-5VogBGXDyE_-XR-A_SF)
+![Sequence Diagram for prereq Command](./Diagrams/SequenceDiagram_PrereqCommand.png)
 
 #### Why This Design?
 
@@ -708,7 +708,7 @@ Identical pattern to `prereq` — checks for the `postreq ` prefix and throws `M
 
 The diagram below shows the execution path for `postreq CS1010`:
 
-![Sequence Diagram for postreq Command](https://img.plantuml.biz/plantuml/png/pLLDZvim4Br7odyOSMAZ9ifMFQ5Lj2azWeGKxGzmOHgi69l5GzNy-_gBn25jrLEqlY0pRzwyUJE8LqrieB4Jy57ESW6WJrpsR60TQ7mVKTPOejRiY7l1Zn9gb8J3mrKH9u6mMXs29lZ6sT68pA1NcWPyXrnr7PFDQlL0LQmcDS2RVh0X_pXMbPaUyPhtJ18aMSMeBLHzIe1fg8gFeQfYWp7DI_g3P3_IC56FokzX-xu_42DqWFtX7b2gPXHOS4qEKXP_W_ZmSc7ZRfhhdRKgW-IoNOVdxVCsiG0Ji64JxMqNGMKwXpw51U4_ZKJV9K0zeBlb_bevfjnGlRpuq6wN9Z51J34bvR2sQPc_DdYFy03RGDqrzbqCycs6Bcnj_8NrI9YouETCkIErHNV6P0C_8ddNqbkWdu21h2VYpi7qJ835NIdB8gRKRrAONSNcw_dMXqks7Q9z8PJgmP2seGfm2Ko8ybhIdj9rMVeIrO1cFYFNd52dJnFcIdt9SYquPRtBiIiq1QDEobaPPtYBzGduZoWJQYM9SQaXYTO8PUCxOO90giai68C3CVTaQCY7HXcWL1J0mEGP5BLcSGFBnfSG6g4rg_rVtEKC1D_FOPSpy_oy_RBDFy5cixbL7zjHN0SxxT-0UXGqNy5ysa03Sz-RDPfBqX7-rPGm_yRbuZS0)
+![Sequence Diagram for postreq Command](./Diagrams/SequenceDiagram_PostreqCommand.png)
 
 #### Why This Design?
 
@@ -743,7 +743,7 @@ PathLock (Main) → Parser → CountCommand → AppState → ModuleList
 
 The diagram below shows the execution path for `count`:
 
-![Sequence Diagram for count Command](https://img.plantuml.biz/plantuml/png/pPJFQiCm3CRlXRw3oAaBz0L22ItPCG53sGCOHsIcYPFQojZZpxBT_KdN7Rlw5Ci_Ivy_YUmTIKlpqCEZhFKAm9sqcQIL0pWypsWKDkYSxF3Gwyw0GaDexwo9DFK8UNvCYk1PoyvBB42Dio6enc6GfitpkwgIYaOBB-wkTlovM9Nl7Mcb9-bzoGeXwRKUrIa3wK3KZw5AIEjDYvB-HT5lJbKyIMcGWhIgkeOEqtGaIHY0m_4QQCPsxh7MZWBIrEiLGs58jYLte80i36t6SR_dg0zEx4aglqd4Kveo_UPBWk2TiiZVKPlWorNbR-zsyQ0iDpylHT0pMwvJyAR5nQc8XonD3Uq24V41KMYeXU-ePiADJ5xSAbXwWppU8KLJ5igYUnxPNX8F0NCB0SnzfMo2IdQdKMwHaSq69ZupMdHpJuk4bvvSJAblWScTc2zqqBV9QaFk6xz7q_fV-7hr0G00)
+![Sequence Diagram for count Command](./Diagrams/SequenceDiagram_CountCommand.png)
 
 #### Why This Design?
 
