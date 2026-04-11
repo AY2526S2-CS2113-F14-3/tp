@@ -966,6 +966,7 @@ database or internet connection.
 * **User Profile** — A saved record containing the user's name and GPA, used to personalise workload recommendations.
 * **Internal Module** — A module that is in PathLock's built-in CEG module list.
 * **External Module** — A module not in PathLock's built-in CEG module list (e.g. cross-faculty modules), added manually with a user-specified MC value.
+
 ---
 
 ## 12. Instructions for manual testing
