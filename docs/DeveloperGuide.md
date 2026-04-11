@@ -1,4 +1,4 @@
-yeyes# PathLock Developer Guide
+# PathLock Developer Guide
 
 ---
 ## Table of Contents

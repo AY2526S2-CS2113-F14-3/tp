@@ -11,7 +11,7 @@ public class ModuleValidator {
      * NUS module code format: 2-3 uppercase letters, 4 digits, optional trailing letter.
      * Example: CS2040C, CS1010E
      */
-    private static final String MODULE_CODE_FORMAT = "^[A-Z]{2,3}\\d{4}[A-Z]?$";
+    private static final String MODULE_CODE_FORMAT = "^[A-Z]{2,4}\\d{4}[A-Z]?$";
     private ModuleValidator() {}
 
     /**
