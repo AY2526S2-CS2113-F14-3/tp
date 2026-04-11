@@ -126,20 +126,27 @@ public class ModuleList {
         logger.log(Level.FINE, "External module added: {0} (MC={1})", new Object[]{code, mc});
     }
 
+    private boolean isRemovable(Module module) {
+        return module != null && module.isCompleted();
+    }
+
     public boolean removeModule(String moduleCode) {
         String code = moduleCode.toUpperCase();
-        Module module;
         if (isRecognisedModule(code)) {
-            module = allModules.get(code);
-        } else {
-            module = externalModules.get(code);
-        }
-
-        if (module != null && module.isCompleted()) {
+            Module module = allModules.get(code);
+            if (!isRemovable(module)) {
+                return false;
+            }
             module.markIncompleted();
             return true;
         }
-        return false;
+
+        Module module = externalModules.get(code);
+        if (!isRemovable(module)) {
+            return false;
+        }
+        externalModules.remove(code);
+        return true;
     }
 
     /**
