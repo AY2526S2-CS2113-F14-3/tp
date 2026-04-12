@@ -35,9 +35,16 @@ public class PathLock {
 
         UserProfile profile = getOrCreateProfile(scanner);
         ModuleList modules = getModuleList(profile.getName());
-        PlannerList course = selectPlanner(scanner, profile.getName());
+        PlannerStorage plannerStorage = selectPlanner(scanner, profile.getName());
+        PlannerList course;
 
-        AppState appState = new AppState(modules, course, profile, profile.getName());
+        try {
+            course = plannerStorage.load();
+        } catch (IOException e) {
+            course = new PlannerList();
+        }
+
+        AppState appState = new AppState(modules, course, profile, plannerStorage);
 
         while (true) {
             UI.userPrompt();
@@ -178,19 +185,14 @@ public class PathLock {
             }
         }
     }
-    private static PlannerList selectPlanner(Scanner scanner, String username) {
+    private static PlannerStorage selectPlanner(Scanner scanner, String username) {
         PlannerStorage plannerStorage = new PlannerStorage(username);
 
         var plans = plannerStorage.listPlannerNames();
 
         if (plans.isEmpty()) {
             plannerStorage.setPlannerName("plan1");
-
-            try {
-                return plannerStorage.load();
-            } catch (IOException e) {
-                return new PlannerList();
-            }
+            return plannerStorage;
         }
 
         System.out.println("Available plans:");
@@ -206,15 +208,12 @@ public class PathLock {
                 int choice = Integer.parseInt(input);
                 if (choice >= 1 && choice <= plans.size()) {
                     String selectedPlan = plans.get(choice - 1);
-
                     plannerStorage.setPlannerName(selectedPlan);
-
                     System.out.println("Loaded plan: " + selectedPlan);
-
-                    return plannerStorage.load();
+                    return plannerStorage;
                 }
             } catch (Exception e) {
-                //
+                // ignore and retry
             }
 
             System.out.println("Invalid choice. Try again.");
