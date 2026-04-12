@@ -33,13 +33,22 @@ This enhancement is non-trivial because it handles two structurally different ex
 
 ### 2. `remove` Command
 
-Implemented `RemoveCommand` and `ModuleList.removeModule()`. The key design decision is calling `module.markIncompleted()` rather than deleting the `Module` object, which preserves the shared `allModules` map that `list`, `count`, `prereq`, and `postreq` commands all depend on.
+Implemented `RemoveCommand` and `ModuleList.removeModule()`.
+
+**Key implementation details:**
+
+- Input is normalised via `toUpperCase()` in the `RemoveCommand` constructor, ensuring module codes are canonicalised at the boundary before any logic runs.
+- `isRemovable()` guards the operation — only modules with `COMPLETED` status can be removed, preventing invalid state transitions.
+- For **internal modules**, `module.markIncompleted()` is called rather than deleting the `Module` object. This preserves the `allModules` map, which `list`, `count`, `prereq`, and `postreq` commands all depend on to function correctly.
+- For **external modules**, `externalModules.remove(code)` is called instead, since external modules have no shared dependents and can be fully discarded.
 
 ---
 
 ### 3. Duplicate Module Check
 
 Implemented a duplicate module check inside `ModuleList`, preventing a user from recording the same module as completed more than once. The check applies to both internal and external modules and surfaces to the user as a clear error message.
+
+For recognised modules, isRemovable() guards the operation: only completed modules can be removed — and on success, markIncompleted() soft-deletes the entry in place. For external modules (not in allModules), the module is instead fully removed from externalModules since no other command depends on that map.
 
 ---
 
