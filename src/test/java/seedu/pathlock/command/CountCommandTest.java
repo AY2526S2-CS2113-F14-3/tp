@@ -94,4 +94,3 @@ public class CountCommandTest {
         assertTrue(result.contains("Incomplete: 0 MCs"));
     }
 }
-
