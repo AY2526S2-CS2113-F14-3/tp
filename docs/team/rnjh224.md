@@ -1,165 +1,71 @@
-# Russell Ng - Project Portfolio Page
-## Overview
-NoNeck is a command-line module planning application designed for NUS Computer Engineering students to track completed modules and plan their academic journey. It supports personalised user profiles, module tracking, and semester-based planning with persistent storage.
+# Russell - Project Portfolio Page
 
----
+## Project: PathLock
 
-## Summary of Contributions
+PathLock is a desktop CLI application designed to help Computer Engineering (CEG) students at NUS plan and track their multi-year academic journey. It enables students to record completed modules, monitor MC progress towards the 160-MC graduation requirement, and organise planned modules across semesters, all offline, with data stored in human-editable files.
 
-### Code contributed
-[reposense link](https://nus-cs2113-ay2526-s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2026-02-20T00%3A00%3A00&filteredFileName=&tabOpen=true&tabType=authorship&tabAuthor=RNJH224&tabRepo=AY2526S2-CS2113-F14-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
+Given below are my contributions to the project.
 
----
+- **New Feature**: Added persistent storage for user profiles.
+    - What it does: saves and loads a user’s profile data, such as name and GPA, from a per-user storage directory.
+    - Justification: This feature allows PathLock to support returning users without requiring them to re-enter their information every time the application starts.
+    - Highlights: Stores profile data under a user-specific folder structure. Handles first-time users, overwriting updated profile data, and loading profiles with decimal GPA values.
 
-### Enhancements implemented
+- **New Feature**: Added persistent storage for completed modules.
+    - What it does: saves and loads the list of completed modules for each user.
+    - Justification: This feature is necessary for PathLock to serve as a long-term planning tool, since users need their academic progress to persist across sessions.
+    - Highlights: Ensures storage files and parent directories are created automatically. Supports loading from empty files and ignores blank lines in the storage file format.
 
-#### 1. Multi-User Storage System (Core Feature)
+- **New Feature**: Added persistent storage for planners, including support for multiple planner variations.
+    - What it does: allows a user to save and load different planner versions under separate planner files.
+    - Justification: Students often want to explore multiple academic plans before deciding on a final pathway. Supporting multiple planner files makes PathLock more flexible for long-term module planning.
+    - Highlights: Added planner naming support, file path switching, and planner listing. Planner files are stored under a per-user `plans` directory and can be loaded independently.
 
-I designed and implemented a full multi-user storage architecture, enabling each user to have independent data for modules, planner, and profile.
+- **Code contributed**: [reposense link](https://nus-cs2113-ay2526-s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2026-02-20T00%3A00%3A00&filteredFileName=&tabOpen=true&tabType=authorship&tabAuthor=RNJH224&tabRepo=AY2526S2-CS2113-F14-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
-- Implemented user-specific file paths:
-- Integrated storage across:
-- Module completion (`Storage`)
-- Planner (`PlannerStorage`)
-- Profile (`ProfileStorage`)
 
-Example:
-- Storage uses: `data/users/<username>/modules.txt`
-- PlannerStorage uses: `data/users/<username>/planner.txt`
-- ProfileStorage uses: `data/users/<username>/profile.txt`
+- **Enhancements to existing features**:
+    - Refactored storage from a single shared file approach into a **per-user directory structure** under `data/users/<username>/...`, improving modularity and making the application more scalable for multiple users.
+    - Improved planner storage to support planner name switching through methods such as setting a planner name and retrieving planner file paths.
+    - Added support for listing existing planner files so users can manage multiple saved plans more easily.
+    - Improved storage robustness by ensuring blank lines in saved files do not break the loading process.
+    - Strengthened save-load round-trip correctness for profile, module, and planner storage through systematic testing.
 
-**Why this is significant:**
-- Enables true multi-user support (not originally in Duke)
-- Required redesign of storage layer and constructor logic
-- Ensures data isolation and persistence per user
+- **Project management**:
+    - Wrote and maintained JUnit tests for storage-related components, covering `ProfileStorage`, `ModStorage`, and `PlannerStorage`.
+    - Helped verify correctness of storage logic through edge-case testing such as empty files, file creation, overwriting existing data, and ignoring malformed spacing/blank lines.
+    - Supported the team’s implementation of user-specific data persistence, which underpins multiple core PathLock features.
 
----
+- **Documentation**:
+    - User Guide:
+        - Documented storage-related behaviour so users understand that their profiles, completed modules, and planners are saved across sessions.
+        - Contributed usage details for planner persistence and multi-plan support.  
 
-#### 2. Planner Storage System
+    - Developer Guide:
+        - Added documentation for storage design, including file locations, file formats, and save/load logic for profile, completed modules, and planners.
+        - Created or refined UML/sequence diagrams for storage-related workflows such as saving and loading planner, profile, and completed module data.
+        - Added testing instructions for storage-related components and manual testing considerations for persistence features.  
 
-Implemented a dedicated `PlannerStorage` class to persist planned modules.
 
-Key features:
-- Saves modules with format:
-- - Loads planner data into `PlannerList`
-- Ensures:
-- Directory auto-creation
-- Input validation using assertions
-- Logging for debugging
+- **Testing**:
+    - Added test coverage for profile storage, including:
+        - loading when no file exists
+        - saving valid profiles
+        - overwriting an existing profile
+        - preserving all fields after save-load round trips
+    - Added test coverage for module storage, including:
+        - loading from empty files
+        - saving and loading multiple modules
+        - auto-creation of files and parent directories
+        - ignoring blank lines in storage files
+    - Added test coverage for planner storage, including:
+        - loading empty planners
+        - saving and loading planner modules with semester data
+        - changing planner file paths via planner names
+        - listing planner files
+        - ignoring blank lines in planner data files
 
-**Technical depth:**
-- Parsing structured file format safely
-- Linking storage to `Module` objects with semester assignment
-- Handling corrupted/invalid input using assertions
-
----
-
-#### 3. Profile Storage System
-
-Implemented `ProfileStorage` to manage user identity and metadata.
-
-Features:
-- Stores:
-- Username
-- GPA
-- Validates file format and throws errors for corruption
-- Returns `null` for non-existent users (used for control flow)
-
-**Why it matters:**
-- Acts as the entry point for user system
-- Enables switching users and personalised state
-- Handles error cases robustly (invalid format, missing user)
-
----
-
-#### 4. User Switching Command
-
-Implemented `SwitchUserCommand` to dynamically switch between user profiles.
-
-Features:
-- Loads:
-- Profile
-- Completed modules
-- Planner
-- Reconstructs application state via `AppState.update(...)`
-- Handles:
-- Unknown modules
-- External modules
-- Partial failures with logging
-
-**Why this is complex:**
-- Coordinates multiple storage systems together
-- Requires careful ordering:
-1. Load profile
-2. Load modules
-3. Load planner
-4. Update app state
-- Ensures system consistency across components
-
----
-
-#### 5. Robust Storage Design (Assertions + Logging)
-
-Enhanced reliability of storage layer by:
-
-- Adding assertions:
-- Prevent null inputs
-- Enforce correct file formats
-- Validate modular credits and fields
-
-- Adding logging:
-- INFO → file operations
-- WARNING → file creation / failures
-- FINE → debugging file parsing
-
-**Impact:**
-- Prevents silent data corruption
-- Improves debugging and maintainability
-- Aligns with good SE practices taught in CS2113
-
----
-
-### Contributions to the User Guide
-
-- Wrote documentation for:
-- Profile creation and switching
-- Planner commands
-- List commands (completed, incomplete, needed)
-- Standardised command format and examples for clarity
-
----
-
-### Contributions to the Developer Guide
-
-- Documented:
-- Storage architecture (multi-user design)
-- Profile and planner storage logic
-- Created/updated:
-- Sequence diagrams for storage operations
-- Class diagrams for storage components
-
----
-
-### Contributions to team-based tasks
-
-- Integrated storage with planner and module systems
-- Helped resolve merge conflicts in storage-related features
-- Standardised file formats across team components
-
----
-
-### Review / mentoring contributions
-
-- Helped teammates debug:
-- Static vs non-static storage bug
-- File path initialisation issues
-- Reviewed PRs related to storage and commands
-
----
-
-### Contributions beyond the project team
-
-- Assisted peers with:
-- Git workflows (branching, merging)
-- Storage implementation concepts
-- Shared debugging strategies for file I/O and assertions
+- **Community**:
+    - Helped improve the reliability of the project by identifying storage edge cases and turning them into automated tests.
+    - Supported the overall architecture by making persistence cleaner and more extensible, especially for the move towards multiple planner variations.
+    - Assisted in refining the team’s developer documentation for storage and testing workflows.

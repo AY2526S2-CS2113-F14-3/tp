@@ -109,6 +109,8 @@ If the name is not found in storage, the program creates a new profile with that
 
 If the name is found in storage, the program loads all saved data under that profile.
 
+warning do not input "|" this character as it will mess up formatting in storage for any names
+
 Example output (new profile):
 ```
 Enter your name: russell
@@ -139,15 +141,15 @@ Recommended maximum semester workload: 32 MCs
 
 ### Plan selection
 
-```
+
 After inputting your name and GPA the program will check your profile 
 If the program detects that this is a new User with no plan yet it will create a defult blank plan named 'plan1'
 
-If User already has one or more plans stored program will list all available plan can prompt user to select which plan
+If User already has one or more plans stored, program will list all available plan and prompts user to select which plan
 
-to select the plan enter the plan index instead of the name
+To select the plan, enter the plan index instead of the name
 
-```
+
 Example:
 ```
 Enter your name: r
