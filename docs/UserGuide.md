@@ -141,7 +141,7 @@ Loaded plan: plan1
 ```
 ---
 
-#### Plan Selection
+### Plan Selection
 
 After inputting your name and GPA the program will check your profile 
 If the program detects that this is a new User with no plan yet it will create a default blank plan named 'plan1'
@@ -166,7 +166,7 @@ Loaded plan: plan1
 ```
 
 ---
-### Switching to another user profile : `switch NAME`
+#### Switching to another user profile : `switch NAME`
 
 Switches the current session to a different user's profile, loading their saved modules and planner data.
 
@@ -477,6 +477,7 @@ CG1111A has been removed from planner
 CS1231 is not found in planner
 =======================================================================
 ```
+
 ---
 #### Editing modules in planner : `planner edit`
 
@@ -503,6 +504,7 @@ Edited CS1231 to be in y2s2
 CS2113 is not found in planner
 =======================================================================
 ```
+
 ---
 #### List all created plans : `planner list plans`
 
@@ -520,6 +522,7 @@ Planner variations:
   2. plan2
 =======================================================================
 ```
+
 ---
 #### Switching between plans in planner : `planner switch`
 
@@ -546,6 +549,7 @@ Planner variations:
 
 =======================================================================
 ```
+
 ---
 ## FAQ
 
