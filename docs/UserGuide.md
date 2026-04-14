@@ -117,8 +117,6 @@ If the name is not found in storage, the program creates a new profile with that
 
 If the name is found in storage, the program loads all saved data under that profile.
 
-> **Note:** Do not input the vertical bar (pipe) character in any names, as it will mess up formatting in storage.
-
 **Example output (new profile):**
 ```
 Enter your name: russell
@@ -576,7 +574,7 @@ Planner variations:
 
 3. **MC workload constraints** – Not all modular credit (MC) constraints are currently enforced by the system. For example, certain semesters (e.g. Y4S2) do not have defined upper or lower workload limits according to NUS guidelines, and special semesters such as internship terms may not reflect their typical MC caps (e.g. 18 MCs). Users are advised to cross check workload requirements using official NUS resources. This may be enhanced in future versions.
 
-4. **Profile Saving** - Do not input "|" this character as it will mess up formatting in storage for any names.
+4. **Profile Saving** — Do not input the vertical bar (pipe) character in any names, as it will mess up formatting in storage.
 
 ---
 ## Command Summary
