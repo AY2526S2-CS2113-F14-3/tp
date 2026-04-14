@@ -178,8 +178,8 @@ public class HelpCommand extends Command {
                         + "Example:\n"
                         + "  count\n\n"
                         + "Example output:\n"
-                        + "  Completed: 40/160 MCs (25.0%)\n"
-                        + "  Remaining: 120/160 MCs (75.0%)\n"
+                        + "  Completed: 40 / 160 MCs (25.0%)\n"
+                        + "  Incomplete: 120 MCs (75.0%)\n"
                         + dash);
 
         helpMap.put("list completed",
