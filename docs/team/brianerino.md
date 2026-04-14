@@ -24,7 +24,7 @@ Given below are my contributions to the project.
   - Highlights: The class enforces input validation at construction time, invalid names or GPAs outside the 2.0–5.0 range throw an `IllegalArgumentException` immediately. For first-semester students with GPA 0.00, the system accepts this and assigns a default maximum of 20 MCs.
 
 
-- **New Feature**: Implemented the Base Structure of ProfileStorage (Persistent User Profile)
+- **New Feature**: Implemented the Base Structure of ProfileStorage - For GPA-Based Workload Testing (Developed & Refactored in Detail by Russell)
   - What it does: Persists and retrieves the user's profile between sessions. Each user gets a dedicated file at `data/users/<username>_profile.txt` in the format `NAME|GPA`.
   - Justification: Returning users should never have to re-enter their GPA. On app launch, PathLock checks for a saved profile. If found, it loads it directly and greets the user. If not, it prompts for a GPA and saves the new profile.
 
